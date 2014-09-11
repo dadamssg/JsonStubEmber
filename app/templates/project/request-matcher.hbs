@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-6">
+    	<h3>
+			
+			{{path}}
+
+			<small>
+				{{#if matchesGetRequest}}
+					<span class="label label-success">GET</span> 
+				{{/if}}
+
+				{{#if matchesPostRequest}}
+					<span class="label label-primary">POST</span> 
+				{{/if}}
+
+				{{#if matchesPutRequest}}
+					<span class="label label-warning">PUT</span> 
+				{{/if}}
+
+				{{#if matchesDeleteRequest}}
+					<span class="label label-danger">DELETE</span> 
+				{{/if}}
+			</small>
+		</h3>
+    </div>
+    <div class="col-md-6 text-right">
+        <button type="submit" class="btn btn-success" {{action 'newResponse'}}>
+        	<span class="glyphicon glyphicon-plus"></span> Add Response
+        </button>
+    	
+        {{#if showHelp}}
+	    	<button type="submit" class="btn btn-warning" {{action 'hideHelp'}}>
+	        	<span class="glyphicon glyphicon-eye-close"></span> Help
+	        </button>
+        {{else}}
+	    	<button type="submit" class="btn btn-warning" {{action 'showHelp'}}>
+	        	<span class="glyphicon glyphicon-eye-open"></span> Help
+	        </button>
+        {{/if}}
+    </div>
+</div>
+
+{{#if showHelp}}
+	{{partial "partials/request-examples"}}
+{{/if}}
+
+<hr/>
+
+{{#if responses.isFulfilled}}
+    {{#if responses}}
+        {{render "responses" responses}}
+    {{else}}
+    	<div class="row">
+    		<div class="col-md-12 text-center no-resources">No responses...</div>
+    	</div>
+    {{/if}}
+{{else}}
+	{{loading-widget target="responses"}}
+{{/if}}
+
+{{outlet responseModal}}

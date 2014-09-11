@@ -1,0 +1,19 @@
+{{#if errorMessages}}
+    <div class="alert alert-danger">
+        <ul>
+            {{#each errorMessages}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+{{#if successMessages}}
+    <div class="alert alert-success">
+        <ul>
+            {{#each successMessages}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}

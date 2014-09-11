@@ -1,0 +1,50 @@
+
+<div class="row">
+    <div class="col-md-6">
+        
+            {{#link-to 'project' this classNames="project-title"}}
+                {{title}}
+            {{/link-to}} 
+
+            {{#if private}}
+                <span class="glyphicon glyphicon-lock"></span>
+            {{else}}
+                <span class="glyphicon glyphicon-eye-open"></span>
+            {{/if}}
+        
+    </div>
+    <div class="col-md-6 text-right">
+        <button type="submit" class="btn btn-default" {{action 'editProject' this}}>
+            <span class="glyphicon glyphicon-pencil"></span> Edit 
+        </button>
+    </div>
+</div>
+
+<hr/>
+
+{{outlet}}
+
+{{#if showRequestMatchers}}
+    
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-success" {{action 'newRequestMatcher'}}>
+                <span class="glyphicon glyphicon-plus"></span> Add Request
+            </button>
+        </div>
+    </div>
+
+    {{#if requestMatchers.isFulfilled}}
+        {{#if requestMatchers}}
+            {{render "request-matchers" requestMatchers}}
+        {{else}}
+            <div class="row">
+                <div class="col-md-12 text-center no-resources">No requests...</div>
+            </div>
+        {{/if}}
+    {{else}}
+        {{loading-widget target="requests"}}
+    {{/if}}
+{{/if}}
+
+{{outlet "request-matcher-modal"}}

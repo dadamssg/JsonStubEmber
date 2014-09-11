@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="login-container">
+            {{partial "partials/messages"}}
+
+            {{#if completed}}
+                <div class="alert alert-success">
+                    <p><strong>Registration complete!</strong> Please check your inbox for the confirmation email.</p>
+                </div>
+            {{else}}
+                <form {{action 'register' on='submit'}} role="form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        {{input type="email" value=email required="true" class="form-control" id="email" placeholder="Email"}}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>        
+                        {{input type="password" value=password required="true" class="form-control" id="password" placeholder="Password"}}
+                    </div>
+                    <div class="form-group">
+                        <label for="rePassword">Re-Password</label>        
+                        {{input type="password" value=rePassword class="form-control" id="rePassword" placeholder="Password again"}}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary" {{bind-attr disabled=working}}>
+                                {{#if working}}
+                                    Signing you up!
+                                {{else}}
+                                    Sign up
+                                {{/if}}
+                            </button>
+                        </div>
+                        <div class="col-md-6 text-right">{{#link-to 'login'}}Already signed up?{{/link-to}}</div>
+                    </div>
+                </form>
+            {{/if}}
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

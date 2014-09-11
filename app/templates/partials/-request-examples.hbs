@@ -1,0 +1,53 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#jquery" data-toggle="tab">jQuery</a></li>
+    <li><a href="#ember" data-toggle="tab">Ember</a></li>
+    <li><a href="#angular" data-toggle="tab">Angular</a></li>
+    <li><a href="#curl" data-toggle="tab">Curl</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <br/>
+    <div class="tab-pane active" id="jquery">
+<pre><code class="javascript">$.ajax({
+    type: '{{httpMethods}}',
+    url: 'http://jsonstub.com{{path}}',
+    contentType: 'application/json',
+    beforeSend: function (request) {
+        request.setRequestHeader('JsonStub-User-Key', '{{apiToken}}');
+        request.setRequestHeader('JsonStub-Project-Key', '{{projectToken}}');
+    }
+}).done(function (data) {
+    //do something with data
+});</code></pre>
+    </div>
+    <div class="tab-pane" id="ember">
+<pre><code class="javascript">DS.RESTAdapter.reopen({
+    host: 'http://jsonstub.com',
+    headers: {
+        'JsonStub-User-Key': '{{apiToken}}',
+        'JsonStub-Project-Key': '{{projectToken}}'
+    }
+});</code></pre>
+    </div>
+    <div class="tab-pane" id="angular">
+<pre><code class="javascript">$http({
+    url: 'http://jsonstub.com{{path}}',
+    method: '{{httpMethods}}',
+    headers: {
+        'Content-Type': 'application/json',
+        'JsonStub-User-Key': '{{apiToken}}',
+        'JsonStub-Project-Key': '{{projectToken}}'
+    }
+}).success(function (data, status, headers, config) {
+    //do something with data
+});</code></pre>
+    </div>
+    <div class="tab-pane" id="curl">
+<pre><code class="bash">$ curl -X {{httpMethods}} http://jsonstub.com{{path}}
+    -H "Content-Type: application/json"
+    -H "JsonStub-User-Key: {{apiToken}}"
+    -H "JsonStub-Project-Key: {{projectToken}}"</code></pre>
+    </div>
+</div>

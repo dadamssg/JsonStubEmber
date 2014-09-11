@@ -1,0 +1,69 @@
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Http Methods</th>
+                <th>
+                    <button type="button" {{bind-attr class=":btn :btn-xs isSortingByPath:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'path'}}>
+                        Path {{#if isSortingByPath}}<span class="caret"></span>{{/if}}
+                    </button>
+                </th>
+                <th>
+                    <button type="button" {{bind-attr class=":btn :btn-xs isSortingByCreatedAt:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'createdAt'}}>
+                        Created {{#if isSortingByCreatedAt}}<span class="caret"></span>{{/if}}
+                    </button>
+                </th>
+                <th>
+                    <button type="button" {{bind-attr class=":btn :btn-xs isSortingByUpdatedAt:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'updatedAt'}}>
+                        Updated {{#if isSortingByUpdatedAt}}<span class="caret"></span>{{/if}}
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each}}
+            {{#if path}}
+                <tr>
+                    <td>
+                        {{#if matchesGetRequest}}
+                            <span class="label label-success">GET</span> 
+                        {{/if}}
+
+                        {{#if matchesPostRequest}}
+                            <span class="label label-primary">POST</span> 
+                        {{/if}}
+
+                        {{#if matchesPutRequest}}
+                            <span class="label label-warning">PUT</span> 
+                        {{/if}}
+
+                        {{#if matchesDeleteRequest}}
+                            <span class="label label-danger">DELETE</span> 
+                        {{/if}}
+                    </td>
+                    <td>
+                        {{#if isNew}}
+                            {{path}}
+                        {{else}}
+                            {{#link-to 'project.request-matcher' this}}{{path}}{{/link-to}}
+                        {{/if}}
+                    </td>
+                    <td>
+                        {{format-date createdAt}}
+                    </td>
+                    <td>
+                        {{format-date updatedAt}}
+                    </td>
+                    <td class="text-right">
+                        {{#unless isNew}}
+                            <button type="submit" class="btn btn-default" {{action 'editRequestMatcher' this}}>
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </button>
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/if}}
+        {{/each}}
+        </tbody>
+    </table>
+</div>

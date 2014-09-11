@@ -1,0 +1,12 @@
+{{#if for.errors.content.length}}
+    <div class="alert alert-danger">
+        <h4>There was a problem</h4>
+        <ul>
+            {{#each for.errors.content}}
+                <li>
+                    {{message}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}

@@ -1,0 +1,7 @@
+{{#if session.isAuthenticated}}
+    {{partial "partials/authenticated-navbar"}}
+{{else}}
+    {{partial "partials/non-authenticated-navbar"}}
+{{/if}}
+
+{{outlet}}

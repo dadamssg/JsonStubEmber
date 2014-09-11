@@ -1,0 +1,26 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                {{#if isNew}}New{{else}}Edit{{/if}} Project
+            </h4>
+        </div>
+        <div class="modal-body">
+            
+            {{error-messages for=this}}
+
+            <form {{action 'save' on='submit'}} role="form">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    {{input type="text" value=title required="true" class="form-control" id="title" placeholder="Title"}}
+                </div>
+                <div class="checkbox">
+                    <label>
+                        {{input type="checkbox" checked=private id="private"}} Private
+                    </label>
+                </div>
+                {{partial "partials/resource-button-bar"}}
+            </form>
+        </div>
+    </div>
+</div>

@@ -4,11 +4,24 @@ export default Ember.ObjectController.extend(Ember.Evented, {
 
     saving: false,
 
+    getJson: function() {
+        var response = this.get('model');
+        return JSON.parse(response.get('body'));
+    },
+
     actions: {
 
         save: function() {
 
             var response = this.get('model');
+
+            try {
+                this.getJson();
+            } catch (err) {
+                response.get('errors').add('body', 'Invalid json.');
+                return;
+            }
+
             var self = this;
 
             self.set('saving', true);
@@ -53,6 +66,15 @@ export default Ember.ObjectController.extend(Ember.Evented, {
 
             response.rollback();
             this.trigger('hideResponseModal');         
+        },
+
+        logToConsole: function () {
+            try {
+                var body = this.getJson();
+                console.log(body);
+            } catch(err) {
+                console.log(err.message);
+            }
         }
     },
 

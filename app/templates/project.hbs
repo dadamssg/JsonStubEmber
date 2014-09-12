@@ -33,17 +33,15 @@
         </div>
     </div>
 
-    {{#if requestMatchers.isFulfilled}}
-        {{#if requestMatchers}}
-            {{render "request-matchers" requestMatchers}}
-{{!--         {{else}}
-            <div class="row">
-                <div class="col-md-12 text-center no-resources">No requests...</div>
-            </div> --}}
-        {{/if}}
-    {{else}}
-        {{loading-widget target="requests"}}
-    {{/if}}
+
+<div {{bind-attr class="requestMatchers.isFulfilled::hidden"}}>
+    {{render "request-matchers" requestMatchers}}
+</div>
+
+{{#unless requestMatchers.isFulfilled}}
+    {{loading-widget target="requests"}}
+{{/unless}}
+
 </div>
 
 {{outlet "request-matcher-modal"}}

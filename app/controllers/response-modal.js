@@ -5,8 +5,7 @@ export default Ember.ObjectController.extend(Ember.Evented, {
     saving: false,
 
     getJson: function() {
-        var response = this.get('model');
-        return JSON.parse(response.get('body'));
+        return JSON.parse(this.get('model.body'));
     },
 
     actions: {

@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import SortableController from '../mixins/sortable-array-controller';
 
-export default Ember.ArrayController.extend({
+export default Ember.ArrayController.extend(SortableController, {
     needs: ['project'],
     sortProperties: ['createdAt'],
 
@@ -16,21 +17,7 @@ export default Ember.ArrayController.extend({
         return this.isSortingByField('updatedAt');
     }.property('sortProperties'),
 
-    isSortingByField: function (field) {
-        var activeProperty = this.get('sortProperties').get('firstObject');
-        return field === activeProperty;
-    },
-
     actions: {
-        sort: function (field) {
-            var activeProperty = this.get('sortProperties').get('firstObject');
-            if (field === activeProperty) {
-                this.toggleProperty('sortAscending');   
-            } else {
-                this.set('sortProperties', [field]);
-            }  
-        },
-
         editRequestMatcher: function (requestMatcher) {
             this.get('controllers.project').send('editRequestMatcher', requestMatcher);
         }

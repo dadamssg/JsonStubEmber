@@ -7,6 +7,7 @@ export default DS.RESTSerializer.extend({
         var json = this._super(record, options);
 
         delete json.responses;
+        delete json.apiToken;
 
         return json;
     },

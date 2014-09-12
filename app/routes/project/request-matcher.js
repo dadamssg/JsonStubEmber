@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+    sortRequestMatchersBy: 'createdAt',
+    sortRequestMatchersAscending: true,
+
 	activate: function() {
 		this.controllerFor('project').set('showRequestMatchers', false);
 	}, 

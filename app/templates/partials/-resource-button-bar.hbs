@@ -10,11 +10,11 @@
     </div>
     <div class="col-md-6 text-right">
         {{#unless isNew}}
-            <button type="button" {{action delete}} class="btn btn-danger">
+            <button type="button" {{action "delete"}} class="btn btn-danger">
                 <span class="glyphicon glyphicon-trash"></span> Delete
             </button>
         {{/unless}}
-        <button type="button" {{action cancel}} class="btn btn-default">
+        <button type="button" {{action "cancel"}} class="btn btn-default">
             <span class="glyphicon glyphicon-arrow-left"></span> Cancel
         </button>
     </div>

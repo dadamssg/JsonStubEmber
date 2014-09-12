@@ -24,8 +24,7 @@
 
 {{outlet}}
 
-{{#if showRequestMatchers}}
-    
+<div {{bind-attr class="showRequestMatchers::hidden"}}>
     <div class="row">
         <div class="col-md-12 text-right">
             <button type="submit" class="btn btn-success" {{action 'newRequestMatcher'}}>
@@ -37,14 +36,14 @@
     {{#if requestMatchers.isFulfilled}}
         {{#if requestMatchers}}
             {{render "request-matchers" requestMatchers}}
-        {{else}}
+{{!--         {{else}}
             <div class="row">
                 <div class="col-md-12 text-center no-resources">No requests...</div>
-            </div>
+            </div> --}}
         {{/if}}
     {{else}}
         {{loading-widget target="requests"}}
     {{/if}}
-{{/if}}
+</div>
 
 {{outlet "request-matcher-modal"}}

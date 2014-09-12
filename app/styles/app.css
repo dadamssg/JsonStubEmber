@@ -120,3 +120,7 @@ body {
 .loading-sub-resources {
     margin: 50px 0px;
 }
+
+.hidden {
+    display: none;
+}

@@ -19,6 +19,10 @@ export default DS.RESTSerializer.extend({
         response.createdAt = response.created_at;
         response.updatedAt = response.updated_at;
 
+        delete response.status_code;
+        delete response.created_at;
+        delete response.updated_at;
+
         return response;
     },
 

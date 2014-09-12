@@ -46,16 +46,13 @@
 
 <hr/>
 
-{{#if responses.isFulfilled}}
-    {{#if responses}}
-        {{render "responses" responses}}
-    {{else}}
-    	<div class="row">
-    		<div class="col-md-12 text-center no-resources">No responses...</div>
-    	</div>
-    {{/if}}
-{{else}}
-	{{loading-widget target="responses"}}
-{{/if}}
+<div {{bind-attr class="responses.isFulfilled::hidden"}}>
+    {{render "responses" responses}}
+</div>
+
+{{#unless responses.isFulfilled}}
+    {{loading-widget target="responses"}}
+{{/unless}}
+
 
 {{outlet responseModal}}

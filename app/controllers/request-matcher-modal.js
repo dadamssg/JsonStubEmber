@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.ObjectController.extend(Ember.Evented, {
 
+    needs: ["project"],
+
     saving: false, 
 
     actions: {
@@ -15,6 +17,9 @@ export default Ember.ObjectController.extend(Ember.Evented, {
 
             var isNew = requestMatcher.get('isNew');
 
+            var project = this.get('controllers.project').get('model');
+            requestMatcher.set('project', project);
+            
             requestMatcher.save().then(function(){                
                 self.trigger('hideRequestMatcherModal');
                 if (true === isNew) {

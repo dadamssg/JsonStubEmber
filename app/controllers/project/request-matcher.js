@@ -4,6 +4,8 @@ import CurrentUserMixin from '../../mixins/current-user';
 
 export default Ember.ObjectController.extend(ApiResponseMixin, CurrentUserMixin, {
 
+    needs: ["project"],
+    
     saving: false,
 
     editing: false,
@@ -43,12 +45,10 @@ export default Ember.ObjectController.extend(ApiResponseMixin, CurrentUserMixin,
     actions: {
 
         edit: function() {
-
             this.set('editing', true);
         },
 
         view: function() {
-
             this.set('editing', false);
         },
 
@@ -65,14 +65,13 @@ export default Ember.ObjectController.extend(ApiResponseMixin, CurrentUserMixin,
 
             var requestMatcher = this.get('model');
 
-            var project = this.controllerFor('project').get('model');
+            var project = this.get('controllers.project').get('model');
 
             requestMatcher.set('activeResponse', response);
             requestMatcher.set('project', project);
-            requestMatcher.save().then(function() {                
-            }).catch(function (response) {
+            requestMatcher.save().catch(function (response) {
                 self.extractErrors(response);
-               requestMatcher.rollback();
+                requestMatcher.rollback();
             }).finally(function() {
                 self.set('saving', false);
             });

@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ResourceModal from '../mixins/resource-modal';
 
-export default Ember.ObjectController.extend(Ember.Evented, {
+export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
     saving: false,
 
@@ -52,10 +53,14 @@ export default Ember.ObjectController.extend(Ember.Evented, {
                     responses.removeObject(response);
                     self.trigger('hideResponseModal');
                 });
+            }).finally(function () {
+                self.set('attemptingDelete', false);
             });
         },
 
         cancel: function() {
+
+            this.set('attemptingDelete', false);
 
             var response = this.get('model');
             var self = this;
@@ -124,7 +129,7 @@ export default Ember.ObjectController.extend(Ember.Evented, {
 	    {code: 415, text: "415 - Unsupported Media Type"},
 	    {code: 416, text: "416 - Requested Range Not Satisfiable"},
 	    {code: 417, text: "417 - Expectation Failed"},
-	    {code: 418, text: "418 - I&#039;m a teapot"},
+	    {code: 418, text: "418 - I'm a teapot"},
 	    {code: 422, text: "422 - Unprocessable Entity"},
 	    {code: 423, text: "423 - Locked"},
 	    {code: 424, text: "424 - Failed Dependency"},

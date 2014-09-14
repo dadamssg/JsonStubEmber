@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ResourceModal from '../mixins/resource-modal';
 
-export default Ember.ObjectController.extend(Ember.Evented, {
+export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
     saving: false,
 
@@ -34,10 +35,13 @@ export default Ember.ObjectController.extend(Ember.Evented, {
                 self.trigger('hideProjectModal');
                 self.transitionToRoute('projects');
             }).fail(function () {
+            }).finally(function () {
+                self.set('attemptingDelete', false);
             });
         },
 
         cancel: function() {
+            this.set('attemptingDelete', false);
 
             var project = this.get('model');
             var self = this;

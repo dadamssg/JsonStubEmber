@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ResourceModal from '../mixins/resource-modal';
 
-export default Ember.ObjectController.extend(Ember.Evented, {
+export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
     needs: ["project"],
 
@@ -32,7 +33,6 @@ export default Ember.ObjectController.extend(Ember.Evented, {
         },
 
         delete: function() {
-
             var requestMatcher = this.get('model');
             var self = this;
 
@@ -43,10 +43,14 @@ export default Ember.ObjectController.extend(Ember.Evented, {
                     requestMatchers.removeObject(requestMatcher);
                     self.trigger('hideRequestMatcherModal');
                 });
+            }).finally(function () {
+                self.set('attemptingDelete', false);
             });
         },
 
         cancel: function() {
+
+            this.set('attemptingDelete', false);
 
             var requestMatcher = this.get('model');
             var self = this;

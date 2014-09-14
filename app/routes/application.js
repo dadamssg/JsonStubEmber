@@ -12,9 +12,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
             if (config.environment === 'production') {
                 Ember.run.once(this, function() {
-                    var url = this.router.get('url');
-                    console.log(url);
-                    ga('send', 'pageview', url);
+                    ga('send', 'pageview', this.router.get('url'));
                 });
             }
         }

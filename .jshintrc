@@ -4,7 +4,8 @@
     "window": true,
     "-Promise": true,
     "JsonstubEmberENV": true,
-    "moment": true
+    "moment": true,
+    "ga": true
   },
   "browser" : true,
   "boss" : true,

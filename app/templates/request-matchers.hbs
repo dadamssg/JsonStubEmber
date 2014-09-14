@@ -5,19 +5,19 @@
                 <tr>
                     <th>Http Methods</th>
                     <th>
-                        <button type="button" {{bind-attr class=":btn :btn-xs isSortingByPath:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'path'}}>
+                        <span {{bind-attr class=":mouse-pointer isSortingByPath:active-sort sortAscending::dropup"}} {{action 'sort' 'path'}}>
                             Path {{#if isSortingByPath}}<span class="caret"></span>{{/if}}
-                        </button>
+                        </span>
                     </th>
                     <th>
-                        <button type="button" {{bind-attr class=":btn :btn-xs isSortingByCreatedAt:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'createdAt'}}>
+                        <span {{bind-attr class=":mouse-pointer isSortingByCreatedAt:active-sort sortAscending::dropup"}} {{action 'sort' 'createdAt'}}>
                             Created {{#if isSortingByCreatedAt}}<span class="caret"></span>{{/if}}
-                        </button>
+                        </span>
                     </th>
                     <th>
-                        <button type="button" {{bind-attr class=":btn :btn-xs isSortingByUpdatedAt:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'updatedAt'}}>
+                        <span {{bind-attr class=":mouse-pointer isSortingByUpdatedAt:active-sort sortAscending::dropup"}} {{action 'sort' 'updatedAt'}}>
                             Updated {{#if isSortingByUpdatedAt}}<span class="caret"></span>{{/if}}
-                        </button>
+                        </span>
                     </th>
                 </tr>
             </thead>

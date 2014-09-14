@@ -124,3 +124,53 @@ body {
 .hidden {
     display: none;
 }
+
+.headline {
+    font-size: 45px;
+}
+
+.welcome {
+  padding: 40px 15px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.secondary {
+    color: #F22ED8;
+    font-size: 1.2em;
+}
+
+.demo-box {
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.demo-modal-pic {
+    box-shadow: 0px 0px 40px #444;
+    border: 1px solid #fff;
+}
+
+.bottom-signup {
+    margin-top: 30px;
+}
+
+.home-divider {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.ember-logo {
+    padding-bottom: 10px;
+}
+
+.footer {
+    margin: 80px 0px 60px 0px; 
+}
+
+.mouse-pointer:hover {
+    cursor: pointer;
+}
+
+.active-sort {
+    /* color: #31b0d5; */
+}

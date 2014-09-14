@@ -5,7 +5,11 @@ export default Ember.ObjectController.extend(Ember.Evented, {
     saving: false,
 
     getJson: function() {
-        return JSON.parse(this.get('model.body'));
+        var body = this.get('model.body').trim();
+        if (body.length === 0) {
+            return body;
+        }
+        return JSON.parse(body);
     },
 
     actions: {
@@ -25,8 +29,13 @@ export default Ember.ObjectController.extend(Ember.Evented, {
 
             self.set('saving', true);
 
-            response.save().then(function(){                
-                self.trigger('hideResponseModal');
+            response.save().then(function(){       
+                response.get('requestMatcher').then(function (requestMatcher) {
+                    // reload to get updated responses because the activated response might have changed
+                    return requestMatcher.reload();
+                }).then(function () {
+                    self.trigger('hideResponseModal');
+                });       
             }).catch(function () {
             }).finally(function () {
                 self.set('saving', false);

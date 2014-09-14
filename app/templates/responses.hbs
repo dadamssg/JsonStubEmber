@@ -4,30 +4,30 @@
         <thead>
             <tr>
                 <th>
-                    <button type="button" {{bind-attr class=":btn :btn-xs isSortingByStatusCode:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'statusCode'}}>
+                    <span {{bind-attr class=":mouse-pointer isSortingByStatusCode:active-sort sortAscending::dropup"}} {{action 'sort' 'statusCode'}}>
                         Status Code {{#if isSortingByStatusCode}}<span class="caret"></span>{{/if}}
-                    </button>
+                    </span>
                 </th>
                 <th>
-                    <button type="button" {{bind-attr class=":btn :btn-xs isSortingByTitle:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'title'}}>
+                    <span {{bind-attr class=":mouse-pointer isSortingByTitle:active-sort sortAscending::dropup"}} {{action 'sort' 'title'}}>
                         Title {{#if isSortingByTitle}}<span class="caret"></span>{{/if}}
-                    </button>
+                    </span>
                 </th>
                 <th>
-                    <button type="button" {{bind-attr class=":btn :btn-xs isSortingByCreatedAt:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'createdAt'}}>
+                    <span {{bind-attr class=":mouse-pointer isSortingByCreatedAt:active-sort sortAscending::dropup"}} {{action 'sort' 'createdAt'}}>
                         Created {{#if isSortingByCreatedAt}}<span class="caret"></span>{{/if}}
-                    </button>
+                    </span>
                 </th>
                 <th>
-                    <button type="button" {{bind-attr class=":btn :btn-xs isSortingByUpdatedAt:btn-primary:btn-default sortAscending::dropup"}} {{action 'sort' 'updatedAt'}}>
+                    <span {{bind-attr class=":mouse-pointer isSortingByUpdatedAt:active-sort sortAscending::dropup"}} {{action 'sort' 'updatedAt'}}>
                         Updated {{#if isSortingByUpdatedAt}}<span class="caret"></span>{{/if}}
-                    </button>
+                    </span>
                 </th>
                 <th class="text-right"></th>
             </tr>
         </thead>
           <tbody>
-            {{#each }}
+            {{#each}}
                 {{#if title}}
                     <tr>
                         <td>

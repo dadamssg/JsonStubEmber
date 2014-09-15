@@ -4,6 +4,13 @@
         <div class="login-container">
             {{partial "partials/messages"}}
 
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <strong>Heads up!</strong> JsonStub has just been updated. In doing that, the authentication system has been updated as well. If you've signed up before 9/14/2014, you will need to {{#link-to 'reset'}}reset your password.{{/link-to}} Sorry for the inconvience! 
+
+              <br/><br/><small>If you used mailinator, shoot <a href="mailto:support@jsonstub.com" target="_blank">support</a> and email with the email you'll like to update with!</small>
+            </div>
+
             <form {{action 'authenticate' on='submit'}} role="form">
                 <div class="form-group">
                     <label for="identification">Email</label>

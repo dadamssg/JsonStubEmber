@@ -10,7 +10,7 @@ export default Ember.ObjectController.extend(ApiResponseMixin, CurrentUserMixin,
 
     editing: false,
 
-    showHelp: false,
+    showExamples: false,
 
     cameFrom: null,
 
@@ -96,7 +96,7 @@ export default Ember.ObjectController.extend(ApiResponseMixin, CurrentUserMixin,
             }
         },
 
-        showHelp: function () {
+        showExamples: function () {
 
             var apiToken = this.get('apiToken');
             
@@ -107,11 +107,11 @@ export default Ember.ObjectController.extend(ApiResponseMixin, CurrentUserMixin,
                 });
             } 
             
-            this.set('showHelp', true);
+            this.set('showExamples', true);
         },
 
-        hideHelp: function() {
-            this.set('showHelp', false);
+        hideExamples: function() {
+            this.set('showExamples', false);
         }
     }
 });

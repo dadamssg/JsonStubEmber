@@ -28,19 +28,19 @@
         	<span class="glyphicon glyphicon-plus"></span> Add Response
         </button>
     	
-        {{#if showHelp}}
-	    	<button type="submit" class="btn btn-warning" {{action 'hideHelp'}}>
-	        	<span class="glyphicon glyphicon-eye-close"></span> Help
+        {{#if showExamples}}
+	    	<button type="submit" class="btn btn-warning" {{action 'hideExamples'}}>
+	        	<span class="glyphicon glyphicon-eye-close"></span> Examples
 	        </button>
         {{else}}
-	    	<button type="submit" class="btn btn-warning" {{action 'showHelp'}}>
-	        	<span class="glyphicon glyphicon-eye-open"></span> Help
+	    	<button type="submit" class="btn btn-warning" {{action 'showExamples'}}>
+	        	<span class="glyphicon glyphicon-eye-open"></span> Examples
 	        </button>
         {{/if}}
     </div>
 </div>
 
-{{#if showHelp}}
+{{#if showExamples}}
 	{{partial "partials/request-examples"}}
 {{/if}}
 

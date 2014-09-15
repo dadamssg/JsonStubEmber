@@ -19,7 +19,7 @@ export default Ember.Route.extend({
             messages.pushObject('Registration complete!');
             self.transitionTo('login');     
         }).fail(function() {
-            self.transitionTo('register');   
+            self.transitionTo('signup');   
         });
     }
 });

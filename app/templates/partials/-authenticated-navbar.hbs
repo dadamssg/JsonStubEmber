@@ -12,7 +12,7 @@
         <div class="navbar-collapse collapse">           
             <ul class="nav navbar-nav navbar-right">
                 <li>{{#link-to 'admin.profile'}}Profile{{/link-to}}</li>
-                <li><a {{ action 'invalidateSession' }}>Logout</a></li>
+                <li><a {{ action 'invalidateSession' }} class="mouse-pointer">Logout</a></li>
             </ul>
             <button {{action 'newProject'}} class="btn btn-info navbar-btn navbar-right btn-sm">
                 <span class="glyphicon glyphicon-plus"></span> New Project

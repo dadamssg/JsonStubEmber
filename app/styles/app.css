@@ -182,3 +182,20 @@ body {
 .not-found h1 {
     font-size: 40px;
 }
+
+.ember-link {
+    color: #F23818;
+}
+
+.symfony-link {
+    color: #7aba20;
+}
+
+.digital-ocean-link {
+    color: #398bce;
+}
+
+.powered-by {
+    font-size: 12px;
+    margin-top: 5px;
+}

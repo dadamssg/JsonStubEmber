@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin';
+import ajax from 'ic-ajax';
 
 export default Ember.Route.extend(
     AuthenticatedRouteMixin, {
@@ -12,7 +13,18 @@ export default Ember.Route.extend(
 
         var self = this;
         return this.store.find('project', params.id).then(function (project) {
-            return project;
+
+            return ajax('/api/projects/' + project.get('id') + '/responses/active', {
+                type: 'GET',
+                contentType: 'application/json'
+            }).then(function(activeResponses) {
+                self.responseSerializer.extractArray(self.store, 'response', activeResponses);
+                self.store.pushPayload('response', activeResponses);
+                return project;
+            }).catch(function() {
+                self.transitionTo('projects');
+            });
+
         }).catch(function () {
             self.transitionTo('projects');
         });

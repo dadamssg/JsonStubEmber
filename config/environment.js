@@ -43,5 +43,9 @@ module.exports = function(environment) {
     ENV.APP.API.host = 'http://jsonstub.com';
   }
 
+  if (environment === 'staging') {
+    ENV.APP.API.host = 'http://staging.jsonstub.com';
+  }
+
   return ENV;
 };

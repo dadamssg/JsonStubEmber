@@ -10,6 +10,11 @@
                         </span>
                     </th>
                     <th>
+                        <span {{bind-attr class=":mouse-pointer isSortingByActiveResponse:active-sort sortAscending::dropup"}} {{action 'sort' 'activeResponse.title'}}>
+                            Active Response {{#if isSortingByActiveResponse}}<span class="caret"></span>{{/if}}
+                        </span>
+                    </th>
+                    <th>
                         <span {{bind-attr class=":mouse-pointer isSortingByCreatedAt:active-sort sortAscending::dropup"}} {{action 'sort' 'createdAt'}}>
                             Created {{#if isSortingByCreatedAt}}<span class="caret"></span>{{/if}}
                         </span>
@@ -48,6 +53,9 @@
                             {{else}}
                                 {{#link-to 'project.request-matcher' this}}{{path}}{{/link-to}}
                             {{/if}}
+                        </td>
+                        <td>
+                            {{activeResponse.title}}
                         </td>
                         <td>
                             {{format-date createdAt}}

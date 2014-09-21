@@ -19,7 +19,7 @@
         request.setRequestHeader('JsonStub-Project-Key', '{{projectToken}}');
     }
 }).done(function (data) {
-    //do something with data
+    alert(JSON.stringify(data, null, 4));
 });</code></pre>
     </div>
     <div class="tab-pane" id="ember">
@@ -32,16 +32,20 @@
 });</code></pre>
     </div>
     <div class="tab-pane" id="angular">
-<pre><code class="javascript">$http({
+<pre><code class="javascript">// 'dataType' and 'data' are explicitly required for the Content-Type header to be sent
+    
+$http({
     url: 'http://jsonstub.com{{path}}',
     method: '{{httpMethods}}',
+    dataType: 'json', 
+    data: '',         
     headers: {
         'Content-Type': 'application/json',
         'JsonStub-User-Key': '{{apiToken}}',
         'JsonStub-Project-Key': '{{projectToken}}'
     }
 }).success(function (data, status, headers, config) {
-    //do something with data
+    alert(JSON.stringify(data, null, 4));
 });</code></pre>
     </div>
     <div class="tab-pane" id="curl">

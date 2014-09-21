@@ -8,6 +8,10 @@ export default Ember.ArrayController.extend(SortableController, {
     isSortingByPath: function () {
         return this.isSortingByField('path');
     }.property('sortProperties'),
+    
+    isSortingByActiveResponse: function () {
+        return this.isSortingByField('activeResponse.title');
+    }.property('sortProperties'),
 
     isSortingByCreatedAt: function () {
         return this.isSortingByField('createdAt');

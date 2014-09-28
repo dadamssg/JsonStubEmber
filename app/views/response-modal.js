@@ -1,6 +1,5 @@
-import Modal from './modal';
+import ResourceModal from './resource-modal';
 
-export default Modal.extend({
-    templateName: 'responseModal',
-    modalName: 'ResponseModal'
+export default ResourceModal.extend({
+
 });

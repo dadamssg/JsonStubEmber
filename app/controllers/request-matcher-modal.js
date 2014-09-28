@@ -7,6 +7,8 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
     saving: false, 
 
+    deleting: false,
+
     actions: {
 
         save: function() {
@@ -33,18 +35,20 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
         },
 
         delete: function() {
+            this.set('deleting', true);
             var requestMatcher = this.get('model');
             var self = this;
 
             requestMatcher.get('project').then(function (project) {
                 return project.get('requestMatchers');
             }).then(function (requestMatchers) {
-                requestMatcher.destroyRecord().then(function () {
+                return requestMatcher.destroyRecord().then(function () {
                     requestMatchers.removeObject(requestMatcher);
                     self.trigger('closeModal');
                 });
             }).finally(function () {
                 self.set('attemptingDelete', false);
+                self.set('deleting', false);
             });
         },
 

@@ -5,6 +5,8 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
     saving: false,
 
+    deleting: false,
+
     actions: {
 
         save: function() {
@@ -15,7 +17,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
             self.set('saving', true);
 
             project.save().then(function(){                
-                self.trigger('hideProjectModal');
+                self.trigger('closeModal');
                 self.transitionToRoute('project', project);
             }).fail(function () {
             }).finally(function () {
@@ -25,6 +27,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
         delete: function() {
 
+            this.set('deleting', true);
             var project = this.get('model');
             var self = this;
 
@@ -32,11 +35,12 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
                 return project.get('requestMatchers');
             }).then(function (requestMatchers) {
                 requestMatchers.removeObject(project);
-                self.trigger('hideProjectModal');
+                self.trigger('closeModal');
                 self.transitionToRoute('projects');
             }).fail(function () {
             }).finally(function () {
                 self.set('attemptingDelete', false);
+                self.set('deleting', false);
             });
         },
 
@@ -49,12 +53,12 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
             if (project.get('isNew') === true) {   
 
                 project.deleteRecord();
-                self.trigger('hideProjectModal');
+                self.trigger('closeModal');
                 return;
             } 
 
             project.rollback();
-            this.trigger('hideProjectModal');         
+            this.trigger('closeModal');         
         }
     }
 });

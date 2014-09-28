@@ -31,6 +31,14 @@ export default Ember.Route.extend({
         });
     },
 
+    showResponse: function (response) {
+        return this.render('response-modal', {
+            into: 'application',
+            outlet: 'modal',
+            model: response
+        });
+    },
+
 	actions: {
 
 	    newResponse: function() {
@@ -44,17 +52,13 @@ export default Ember.Route.extend({
             requestMatcher.get('responses').then(function(responses) {
             	responses.pushObject(response);
 
-                self.editResponse(response);
+                self.showResponse(response);
             });
         },
       
         editResponse: function (response) {
 
-            return this.render('response-modal', {
-                into: 'application',
-                outlet: 'modal',
-                model: response
-            });
+            this.showResponse(response);
         }
     }
 });

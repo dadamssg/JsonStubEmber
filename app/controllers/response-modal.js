@@ -5,6 +5,8 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
     saving: false,
 
+    deleting: false,
+
     getJson: function() {
         var body = this.get('model.body').trim();
         if (body.length === 0) {
@@ -44,17 +46,18 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
         },
 
         delete: function() {
-
+            this.set('deleting', true);
             var response = this.get('model');
             var self = this;
 
             response.get('requestMatcher.responses').then(function (responses) {
-                response.destroyRecord().then(function () {
+                return response.destroyRecord().then(function () {
                     responses.removeObject(response);
                     self.trigger('closeModal');
                 });
             }).finally(function () {
                 self.set('attemptingDelete', false);
+                self.set('deleting', false);
             });
         },
 

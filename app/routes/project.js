@@ -31,6 +31,14 @@ export default Ember.Route.extend(
         });
     },
 
+    showRequestMatcher: function (requestMatcher) {
+        this.render('request-matcher-modal', {
+            into: 'application',
+            outlet: 'modal',
+            model: requestMatcher
+        });
+    },
+
     actions: {
 
         newRequestMatcher: function() {
@@ -45,17 +53,13 @@ export default Ember.Route.extend(
                 requestMatchers.pushObject(requestMatcher);
                 requestMatcher.set('project', project);
 
-                self.editRequestMatcher(requestMatcher);
+                self.showRequestMatcher(requestMatcher);
             });
         },
         
         editRequestMatcher: function(requestMatcher) {
 
-            this.render('request-matcher-modal', {
-                into: 'application',
-                outlet: 'modal',
-                model: requestMatcher
-            });
+            this.showRequestMatcher(requestMatcher);
         }
     }
 });

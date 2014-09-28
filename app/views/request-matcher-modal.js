@@ -1,6 +1,5 @@
-import Modal from './modal';
+import ResourceModal from './resource-modal';
 
-export default Modal.extend({
-    templateName: 'request-matcher-modal',
-    modalName: 'RequestMatcherModal'
+export default ResourceModal.extend({
+
 });

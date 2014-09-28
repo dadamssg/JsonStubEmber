@@ -3,37 +3,24 @@ import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixi
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
+    showProject: function (project) {
+        this.render('project-modal', {
+            into: 'application',
+            outlet: 'modal',
+            model: project
+        });
+    },
+
     actions: {
 
         newProject: function() {
 
             var project = this.store.createRecord('project');
-            var controller = this.controllerFor('project-modal');
-            controller.set('model', project);
-            this.render('project-modal', {
-                into: 'admin',
-                outlet: 'project-modal'
-            });
+            this.showProject(project);
         },
 
-        editProject: function() {
-
-            var project = this.controllerFor('project').get('model');
-            var controller = this.controllerFor('project-modal');
-            controller.set('model', project);
-
-            this.render('project-modal', {
-                into: 'admin',
-                outlet: 'project-modal'
-            });
-        },
-
-        removeProjectModal: function() {
-
-            this.disconnectOutlet({
-                outlet: 'project-modal',
-                parentView: 'admin'
-            });
+        editProject: function(project) {
+            this.showProject(project);
         }
     }
 });

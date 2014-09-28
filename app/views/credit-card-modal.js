@@ -17,10 +17,6 @@ export default Modal.extend({
         this.handleLoading();
     }.observes('controller.submitting'),
 
-    stopLoading: function () {
-        this.handleLoading();
-    }.observes('controller.submitting'),
-
     handleLoading: function () {
         var submitting = this.get('controller.submitting');
         var $button = this.get('button');

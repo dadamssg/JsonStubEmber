@@ -21,18 +21,24 @@ export default Ember.View.extend({
         var self = this;
 
         //when the controller triggers 'hideModal', actually hide the modal
-        controller.on('hide' + self.get('modalName'), function() {
+        // controller.on('hide' + self.get('modalName'), function() {
 
+        //     self.$().modal('hide');
+
+        //     //unbind the controller from this specific callback
+        //     controller.off('hide' + self.get('modalName'));
+        // });
+
+        controller.on('closeModal', function () {
             self.$().modal('hide');
-
-            //unbind the controller from this specific callback
-            controller.off('hide' + self.get('modalName'));
+            controller.off('closeModal');
         });
 
         this.$().on('hidden.bs.modal', function() {
 
             // bubbled to the route so the outlet gets disconnected
-            controller.send('remove' + self.get('modalName'));
+            //controller.send('remove' + self.get('modalName'));
+            controller.send('closeModal');
         });
     },
 

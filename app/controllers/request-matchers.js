@@ -4,6 +4,11 @@ import SortableController from '../mixins/sortable-array-controller';
 export default Ember.ArrayController.extend(SortableController, {
     needs: ['project'],
     sortProperties: ['createdAt'],
+    showHttpMethods: true,
+    showPath: true,
+    showActiveResponse: true,
+    showCreatedAt: true,
+    showUpdatedAt: true,
 
     isSortingByPath: function () {
         return this.isSortingByField('path');
@@ -24,6 +29,10 @@ export default Ember.ArrayController.extend(SortableController, {
     actions: {
         editRequestMatcher: function (requestMatcher) {
             this.get('controllers.project').send('editRequestMatcher', requestMatcher);
+        },
+
+        toggleColumn: function (column) {
+            this.toggleProperty("show" + column.capitalize());
         }
     }
 });

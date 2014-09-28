@@ -2,8 +2,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="login-container">
-            {{partial "partials/messages"}}
-
+            
             <div class="alert alert-warning alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
               <strong>Announcements!</strong>
@@ -13,8 +12,10 @@
                <br/><br/>
                Also, the <code>Content-Type: application/json</code> header must always be present now for any stubbed requests.
 
-              <br/><br/><small>If you used mailinator, shoot <a href="mailto:support@jsonstub.com" target="_blank">support</a> and email with the email you'll like to update with!</small>
+              <br/><br/><small>If you used mailinator, shoot <a href="mailto:support@jsonstub.com" target="_blank">support</a> an email with the email you'd like to update with!</small>
             </div>
+            
+            {{messages-widget for=this}}
 
             <form {{action 'authenticate' on='submit'}} role="form">
                 <div class="form-group">

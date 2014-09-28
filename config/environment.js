@@ -16,6 +16,9 @@ module.exports = function(environment) {
     APP: {
       API: {
         namespace: 'api'
+      },
+      STRIPE: {
+        pubKey: 'pk_N3Me9PMC88rJy8wZ5jLQ9fvexdR9W'
       }
     },
 
@@ -41,6 +44,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.APP.API.host = 'http://jsonstub.com';
+    ENV.APP.STRIPE.pubKey = 'pk_N3Me9PMC88rJy8wZ5jLQ9fvexdR9W';
   }
 
   if (environment === 'staging') {

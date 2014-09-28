@@ -22,7 +22,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
             requestMatcher.set('project', project);
             
             requestMatcher.save().then(function(){                
-                self.trigger('hideRequestMatcherModal');
+                self.trigger('closeModal');
                 if (true === isNew) {
                     self.transitionToRoute('project.request-matcher', requestMatcher);
                 }
@@ -41,7 +41,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
             }).then(function (requestMatchers) {
                 requestMatcher.destroyRecord().then(function () {
                     requestMatchers.removeObject(requestMatcher);
-                    self.trigger('hideRequestMatcherModal');
+                    self.trigger('closeModal');
                 });
             }).finally(function () {
                 self.set('attemptingDelete', false);
@@ -61,7 +61,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
                 }).then(function (requestMatchers) {
                     requestMatchers.removeObject(requestMatcher);
                     requestMatcher.deleteRecord();
-                    self.trigger('hideRequestMatcherModal');
+                    self.trigger('closeModal');
                 });
 
                 return;
@@ -69,7 +69,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
             requestMatcher.rollback();
 
-            self.trigger('hideRequestMatcherModal');
+            this.trigger('closeModal');
         }
     }
 });

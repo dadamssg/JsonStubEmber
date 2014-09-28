@@ -44,49 +44,16 @@ export default Ember.Route.extend({
             requestMatcher.get('responses').then(function(responses) {
             	responses.pushObject(response);
 
-                var controller = self.controllerFor('responseModal');
-                controller.set('model', response);
-
-                self.render('responseModal', {
-                    into: 'project.request-matcher',
-                    outlet: 'responseModal'
-                });
+                self.editResponse(response);
             });
         },
-
-        save: function() {
-
-            var controller = this.get('controller');
-            controller.set('saving', true);
-
-            var requestMatcher = controller.get('model');
-
-            var self = this;
-
-            requestMatcher.save().then(function() {
-                self.transitionTo('project.request-matcher', requestMatcher);
-                controller.set('editing', false);
-            }).catch(function (reason) {
-                alert(JSON.stringify(reason));
-            }).finally(function () {
-                controller.set('saving', false);
-            });
-        },
-        
+      
         editResponse: function (response) {
-            var controller = this.controllerFor('responseModal');
-            controller.set('model', response);
-            return this.render('responseModal', {
-                into: 'project.request-matcher',
-                outlet: 'responseModal'
-            });
-        },
 
-        removeResponseModal: function() {
-        
-            this.disconnectOutlet({
-                outlet: 'responseModal',
-                parentView: 'project.request-matcher'
+            return this.render('response-modal', {
+                into: 'application',
+                outlet: 'modal',
+                model: response
             });
         }
     }

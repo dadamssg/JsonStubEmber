@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin';
 import ajax from 'ic-ajax';
+import config from '../config/environment';
 
 export default Ember.Route.extend(
     AuthenticatedRouteMixin, {
@@ -14,7 +15,7 @@ export default Ember.Route.extend(
         var self = this;
         return this.store.find('project', params.id).then(function (project) {
 
-            return ajax('/api/projects/' + project.get('id') + '/responses/active', {
+            return ajax(config.APP.API.host + '/api/projects/' + project.get('id') + '/responses/active', {
                 type: 'GET',
                 contentType: 'application/json'
             }).then(function(activeResponses) {
@@ -36,7 +37,6 @@ export default Ember.Route.extend(
 
             var project = this.controllerFor('project').get('model');
             var requestMatcher = this.store.createRecord('request-matcher');
-            var controller = this.controllerFor('request-matcher-modal');
 
             var self = this;
 
@@ -45,30 +45,16 @@ export default Ember.Route.extend(
                 requestMatchers.pushObject(requestMatcher);
                 requestMatcher.set('project', project);
 
-                controller.set('model', requestMatcher);
-
-                self.render('request-matcher-modal', {
-                    into: 'project',
-                    outlet: 'request-matcher-modal'
-                });
+                self.editRequestMatcher(requestMatcher);
             });
         },
-
-        removeRequestMatcherModal: function() {
         
-            this.disconnectOutlet({
-                outlet: 'request-matcher-modal',
-                parentView: 'project'
-            });
-        },
-
         editRequestMatcher: function(requestMatcher) {
 
-            var controller = this.controllerFor('request-matcher-modal');
-            controller.set('model', requestMatcher);
-            return this.render('request-matcher-modal', {
-                into: 'project',
-                outlet: 'request-matcher-modal'
+            this.render('request-matcher-modal', {
+                into: 'application',
+                outlet: 'modal',
+                model: requestMatcher
             });
         }
     }

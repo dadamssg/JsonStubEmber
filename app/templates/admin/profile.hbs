@@ -3,7 +3,7 @@
     <div class="col-md-4">
         <div class="login-container">
 
-            {{partial "partials/messages"}}
+            {{messages-widget for=this}}
 
             <form {{action 'updateToken' on='submit'}} role="form">
                 <div class="form-group">
@@ -20,6 +20,10 @@
                     {{else}}
                         New API token
                     {{/if}}
+                </button>
+
+                <button type="submit" class="btn btn-primary" {{action "openModal" "credit-card-modal"}}>
+                    Credit Card
                 </button>
             </form>
         </div>

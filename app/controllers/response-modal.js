@@ -35,7 +35,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
                     // reload to get updated responses because the activated response might have changed
                     return requestMatcher.reload();
                 }).then(function () {
-                    self.trigger('hideResponseModal');
+                    self.trigger('closeModal');
                 });       
             }).catch(function () {
             }).finally(function () {
@@ -51,7 +51,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
             response.get('requestMatcher.responses').then(function (responses) {
                 response.destroyRecord().then(function () {
                     responses.removeObject(response);
-                    self.trigger('hideResponseModal');
+                    self.trigger('closeModal');
                 });
             }).finally(function () {
                 self.set('attemptingDelete', false);
@@ -70,7 +70,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
             	response.get('requestMatcher.responses').then(function (responses) {
 					responses.removeObject(response);
 					response.deleteRecord();
-	                self.trigger('hideResponseModal');
+	                self.trigger('closeModal');
             	}).catch(function () {
                 });
 
@@ -78,7 +78,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
             } 
 
             response.rollback();
-            this.trigger('hideResponseModal');         
+            this.trigger('closeModal');         
         },
 
         logToConsole: function () {

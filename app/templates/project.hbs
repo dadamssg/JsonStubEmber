@@ -25,22 +25,30 @@
 {{outlet}}
 
 <div {{bind-attr class="showRequestMatchers::hidden"}}>
-    <div class="row">
-        <div class="col-md-12 text-right">
+{{!--     <div class="row">
+        <div class="col-md-6">
+            <div class="btn-group btn-group-xs">
+                <button type="button" class="btn btn-default" {{action "toggleRequestMatcherColumn" "httpMethods"}}>Http Methods</button>
+                <button type="button" class="btn btn-default">Path</button>
+                <button type="button" class="btn btn-default">Active Response</button>
+                <button type="button" class="btn btn-default">Created</button>
+                <button type="button" class="btn btn-default">Updated</button>
+            </div>
+        </div>
+        <div class="col-md-6 text-right">
             <button type="submit" class="btn btn-success" {{action 'newRequestMatcher'}}>
                 <span class="glyphicon glyphicon-plus"></span> Add Request
             </button>
         </div>
+    </div> --}}
+
+    <div {{bind-attr class="requestMatchers.isFulfilled::hidden"}}>
+        {{render "request-matchers" requestMatchers}}
     </div>
 
-
-<div {{bind-attr class="requestMatchers.isFulfilled::hidden"}}>
-    {{render "request-matchers" requestMatchers}}
-</div>
-
-{{#unless requestMatchers.isFulfilled}}
-    {{loading-widget target="requests"}}
-{{/unless}}
+    {{#unless requestMatchers.isFulfilled}}
+        {{loading-widget target="requests"}}
+    {{/unless}}
 
 </div>
 

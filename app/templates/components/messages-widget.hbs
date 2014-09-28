@@ -1,0 +1,22 @@
+{{#if for.successMessages}}
+    <div class="alert alert-success">
+        <ul>
+            {{#each for.successMessages}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+{{#if for.errorMessages.content.length}}
+    <div class="alert alert-danger">
+        <h4>There was a problem</h4>
+        <ul>
+            {{#each for.errorMessages.content}}
+                <li>
+                    {{message}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}

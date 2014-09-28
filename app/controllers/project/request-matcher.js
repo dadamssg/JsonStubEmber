@@ -1,10 +1,15 @@
 import Ember from 'ember';
-import ApiResponseMixin from '../../mixins/api-response';
+import ApiMessages from '../../mixins/api-messages';
 import CurrentUserMixin from '../../mixins/current-user';
+import DS from 'ember-data';
 
-export default Ember.ObjectController.extend(ApiResponseMixin, CurrentUserMixin, {
+export default Ember.ObjectController.extend(ApiMessages, CurrentUserMixin, {
 
     needs: ["project"],
+
+    errorMessages: DS.Errors.create(),
+
+    successMessages: [],
     
     saving: false,
 

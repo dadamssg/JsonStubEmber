@@ -1,40 +1,46 @@
 import Ember from 'ember';
-import ApiResponseMixin from '../../mixins/api-response';
 import CurrentUserMixin from '../../mixins/current-user';
+import ajax from 'ic-ajax';
+import ApiMessages from '../../mixins/api-messages';
+import DS from 'ember-data';
 
-export default Ember.Controller.extend(ApiResponseMixin, CurrentUserMixin, {
+export default Ember.Controller.extend(ApiMessages, CurrentUserMixin, {
+
+    successMessages: [],
+
+    errorMessages: DS.Errors.create(),
 
     working: false,
 
     email: Ember.computed.alias("session.user.email"),
 
-    apiToken: Ember.computed.alias("session.user.apiToken"),
+    apiToken: null,
 
     actions: {
 
         updateToken: function () {
 
             this.set('working', true);
+            this.clearMessages();
 
             var self = this;
             var adapter = this.store.adapterFor('application');
             var url = adapter.get('host') + '/' + adapter.get('namespace') + '/user/api-token';
 
-            return Ember.$.ajax({
+            return ajax(url, {
                 type: 'PUT',
-                url: url,
-                dataType: 'json',
-                contentType: "application/json"
-            }).then(function (response) {     
+                contentType: 'application/json',
+            }).then(function (response) {
+                var token = response.user.api_token;   
+                self.set('apiToken', token); 
+
                 var session = self.get('session');
                 var user = session.get('user');
-                var token = response.user.api_token;    
                 user.apiToken = token;
-                self.set('apiToken', token);
                 session.set('user', user);
-            }).fail(function (response) {
+            }).catch(function (response) {
                 self.extractErrors(response);
-            }).always(function () {
+            }).finally(function () {
                 self.set('working', false);
             });
         }

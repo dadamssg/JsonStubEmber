@@ -4,7 +4,7 @@
         <div class="login-container">
             <h3>Forget your password?</h3>
 
-            {{partial "partials/messages"}}
+            {{messages-widget for=this}}
 
             <form {{action 'reset' on='submit'}} role="form">
                 <div class="form-group">

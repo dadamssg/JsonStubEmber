@@ -5,7 +5,9 @@
     "-Promise": true,
     "JsonstubEmberENV": true,
     "moment": true,
-    "ga": true
+    "ga": true,
+    "Stripe": true,
+    "Ladda": true
   },
   "browser" : true,
   "boss" : true,

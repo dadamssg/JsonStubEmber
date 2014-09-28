@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ajax from 'ic-ajax';
 
 export default Ember.Route.extend({
     model: function(params) {
@@ -8,17 +9,15 @@ export default Ember.Route.extend({
         var adapter = this.store.adapterFor('application');
         var url = adapter.get('host') + '/users/confirm/' + params.token;
 
-        return Ember.$.ajax({
+        ajax(url, {
             type: 'GET',
-            url: url,
-            dataType: 'json',
             contentType: "application/json"
         }).then(function () {       
             var loginController = self.controllerFor('login');
             var messages = loginController.get('successMessages');
-            messages.pushObject('Registration complete!');
+            messages.pushObject('Registration complete! Login below.');
             self.transitionTo('login');     
-        }).fail(function() {
+        }).catch(function() {
             self.transitionTo('signup');   
         });
     }

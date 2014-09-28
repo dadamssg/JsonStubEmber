@@ -19,7 +19,12 @@ var app = new EmberApp();
 
 app.import('bower_components/bootstrap/dist/js/bootstrap.js');
 app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+app.import('bower_components/ladda-bootstrap/dist/ladda-themeless.min.css');
+
 app.import('bower_components/moment/moment.js');
+app.import('vendor/stripe/stripe.js');
+app.import('bower_components/ladda-bootstrap/dist/spin.min.js');
+app.import('bower_components/ladda-bootstrap/dist/ladda.min.js');
 
 var mergeTrees = require('broccoli-merge-trees');
 var pickFiles = require('broccoli-static-compiler');

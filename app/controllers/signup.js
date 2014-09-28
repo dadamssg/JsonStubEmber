@@ -1,20 +1,30 @@
 import Ember from 'ember';
-import ApiResponseMixin from '../mixins/api-response';
+import ApiMessages from '../mixins/api-messages';
+import DS from 'ember-data';
+import ajax from 'ic-ajax';
 
-export default Ember.ObjectController.extend(ApiResponseMixin, {
+export default Ember.ObjectController.extend(ApiMessages, {
 
     completed: false,
+    
     working: false,
-	email: '',
-	password: '',
+	
+    email: '',
+	
+    password: '',
+    
     rePassword: '',
+    
+    errorMessages: DS.Errors.create(),
+
+    successMessages: [],
 
     actions: {
 
         register: function () {
 
             var self = this;
-            self.clearErrors();
+            self.clearMessages();
 
             self.set('completed', false);
 
@@ -37,17 +47,15 @@ export default Ember.ObjectController.extend(ApiResponseMixin, {
             var adapter = this.store.adapterFor('application');
             var url = adapter.get('host') + '/users/register';
 
-            return Ember.$.ajax({
+            return ajax(url, {
                 type: 'POST',
-                url: url,
-                dataType: 'json',
                 contentType: "application/json",
                 data: JSON.stringify(registration)
             }).then(function () {         
                 self.set('completed', true);      
-            }).fail(function (response) {
+            }).catch(function (response) {
                 self.extractErrors(response);
-            }).always(function () {
+            }).finally(function () {
                 self.set('working', false);
             });
         } 

@@ -6,7 +6,7 @@ export default Ember.Route.extend({
 
         var controller = this.get('controller');
         if (controller) {
-            controller.clearErrors();
+            controller.clearMessages();
             controller.set('completed', false);
         }
     }   

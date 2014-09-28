@@ -1,8 +1,15 @@
 import Ember from 'ember';
-import ApiResponseMixin from '../mixins/api-response';
+import ApiMessages from '../mixins/api-messages';
 import config from '../config/environment';
+import DS from 'ember-data';
 
-export default Ember.ObjectController.extend(ApiResponseMixin, {
+export default Ember.ObjectController.extend(ApiMessages, {
+
+    needs: ["login"],
+
+    successMessages: [],
+
+    errorMessages: DS.Errors.create(),
 
     submitting: false,
 
@@ -35,7 +42,7 @@ export default Ember.ObjectController.extend(ApiResponseMixin, {
                 dataType: 'json',
                 contentType: "application/json"
             }).then(function () {         
-                self.controllerFor('login').get('successMessages').pushObject('Successfuly reset password! Login below.');
+                self.get('controllers.login').addSuccessMessage('Successfuly reset password! Login below.');
                 self.set('password', '');
                 self.set('rePassword', '');
                 self.transitionTo('login');

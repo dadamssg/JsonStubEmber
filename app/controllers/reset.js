@@ -1,8 +1,14 @@
 import Ember from 'ember';
-import ApiResponseMixin from '../mixins/api-response';
+import ApiMessages from '../mixins/api-messages';
 import config from '../config/environment';
+import DS from 'ember-data';
+import ajax from 'ic-ajax';
 
-export default Ember.ObjectController.extend(ApiResponseMixin, {
+export default Ember.ObjectController.extend(ApiMessages, {
+    
+    errorMessages: DS.Errors.create(),
+
+    successMessages: [],
 
     submitting: false,
 
@@ -18,17 +24,15 @@ export default Ember.ObjectController.extend(ApiResponseMixin, {
             var email = this.get('email');
             var self = this;
 
-            return Ember.$.ajax({
+            return ajax(config.APP.API.host + '/users/reset/' + email, {
                 type: 'GET',
-                url: config.APP.API.host + '/users/reset/' + email,
-                dataType: 'json',
                 contentType: "application/json"
             }).then(function () {         
                 self.get('successMessages').pushObject('Click on the link in the email we just sent you!');
                 self.set('email', '');
-            }).fail(function (response) {
+            }).catch(function (response) {
                 self.extractErrors(response);
-            }).always(function () {
+            }).finally(function () {
                 self.set('submitting', false);
             });
         }

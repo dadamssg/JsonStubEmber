@@ -1,0 +1,81 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                Card Details
+            </h4>
+        </div>
+        <div class="modal-body">
+            
+            {{messages-widget for=this}}
+
+            <form {{action 'submit' on='submit'}} role="form" id="payment-form">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" required="required" size="20" maxlength="20" class="form-control" id="cardNumber" placeholder="Card Number" data-stripe="number" />
+                </div>
+                <div class="form-group">
+                    <label for="cvc">CVC</label>
+                    <input type="text" required="required" size="4" maxlength="4" class="form-control" id="cvc" placeholder="CVC" data-stripe="cvc" />
+                </div>               
+                <div class="form-group">
+                    <label for="exp-month">Expiration</label>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <select class="form-control" data-stripe="exp-month">
+                                <option value="1">Jan (01)</option>
+                                <option value="2">Feb (02)</option>
+                                <option value="3">Mar (03)</option>
+                                <option value="4">Apr (04)</option>
+                                <option value="5">May (05)</option>
+                                <option value="6">June (06)</option>
+                                <option value="7">July (07)</option>
+                                <option value="8">Aug (08)</option>
+                                <option value="9">Sep (09)</option>
+                                <option value="10">Oct (10)</option>
+                                <option value="11">Nov (11)</option>
+                                <option value="12">Dec (12)</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control" data-stripe="exp-year">
+                                <option value="14">2014</option>
+                                <option value="15">2015</option>
+                                <option value="16">2016</option>
+                                <option value="17">2017</option>
+                                <option value="18">2018</option>
+                                <option value="19">2019</option>
+                                <option value="20">2020</option>
+                                <option value="21">2021</option>
+                                <option value="22">2022</option>
+                                <option value="23">2023</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-9">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row button-row">
+                    <div class="col-md-6 text-left">
+                        <button type="submit" class="btn btn-primary ladda-button" data-spinner-size="25" {{bind-attr disabled=submitting}} data-style="expand-right">
+                            <span class="ladda-label">
+                            {{#if submitting}}
+                                Submitting
+                            {{else}}
+                                Submit
+                            {{/if}} 
+                            </span>
+                        </button>
+
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="button" {{action "cancel"}} class="btn btn-default" {{action "closeModal"}}>
+                            <span class="glyphicon glyphicon-arrow-left"></span> Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

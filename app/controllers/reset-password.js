@@ -1,8 +1,14 @@
 import Ember from 'ember';
-import ApiResponseMixin from '../mixins/api-response';
+import ApiMessages from '../mixins/api-messages';
 import config from '../config/environment';
+import DS from 'ember-data';
+import ajax from 'ic-ajax';
 
-export default Ember.ObjectController.extend(ApiResponseMixin, {
+export default Ember.ObjectController.extend(ApiMessages, {
+
+    errorMessages: DS.Errors.create(),
+
+    successMessages: [],
 
     submitting: false,
 
@@ -31,19 +37,17 @@ export default Ember.ObjectController.extend(ApiResponseMixin, {
 
             var token = this.get('token');
 
-            return Ember.$.ajax({
+            return ajax(config.APP.API.host + '/users/reset-password/' + token + '/' + password, {
                 type: 'GET',
-                url: config.APP.API.host + '/users/reset-password/' + token + '/' + password,
-                dataType: 'json',
                 contentType: "application/json"
             }).then(function () {         
                 self.controllerFor('login').get('successMessages').pushObject('Successfuly reset password! Login below.');
                 self.set('password', '');
                 self.set('rePassword', '');
                 self.transitionTo('login');
-            }).fail(function (response) {
+            }).catch(function (response) {
                 self.extractErrors(response);
-            }).always(function () {
+            }).finally(function () {
                 self.set('submitting', false);
             });
         }

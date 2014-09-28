@@ -1,25 +1,41 @@
 {{#if length}}
+    <div class="row request-matchers-buttons">
+        <div class="col-md-6">
+            <div class="btn-group btn-group-xs hidden">
+                <button type="button" {{bind-attr class=":btn :btn-default"}} {{action "toggleColumn" "httpMethods"}}>Http Methods</button>
+                <button type="button" {{bind-attr class=":btn :btn-default"}} {{action "toggleColumn" "path"}}>Path</button>
+                <button type="button" {{bind-attr class=":btn :btn-default"}} {{action "toggleColumn" "activeResponse"}}>Active Response</button>
+                <button type="button" {{bind-attr class=":btn :btn-default"}} {{action "toggleColumn" "createdAt"}}>Created</button>
+                <button type="button" {{bind-attr class=":btn :btn-default"}} {{action "toggleColumn" "updatedAt"}}>Updated</button>
+            </div>
+        </div>
+        <div class="col-md-6 text-right">
+            <button type="submit" class="btn btn-success" {{action 'newRequestMatcher'}}>
+                <span class="glyphicon glyphicon-plus"></span> Add Request
+            </button>
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Http Methods</th>
-                    <th>
+                    <th {{bind-attr class="showHttpMethods::hidden"}}>Http Methods</th>
+                    <th {{bind-attr class="showPath::hidden"}}>
                         <span {{bind-attr class=":mouse-pointer isSortingByPath:active-sort sortAscending::dropup"}} {{action 'sort' 'path'}}>
                             Path {{#if isSortingByPath}}<span class="caret"></span>{{/if}}
                         </span>
                     </th>
-                    <th>
+                    <th {{bind-attr class="showActiveResponse::hidden"}}>
                         <span {{bind-attr class=":mouse-pointer isSortingByActiveResponse:active-sort sortAscending::dropup"}} {{action 'sort' 'activeResponse.title'}}>
                             Active Response {{#if isSortingByActiveResponse}}<span class="caret"></span>{{/if}}
                         </span>
                     </th>
-                    <th>
+                    <th {{bind-attr class="showCreatedAt::hidden"}}>
                         <span {{bind-attr class=":mouse-pointer isSortingByCreatedAt:active-sort sortAscending::dropup"}} {{action 'sort' 'createdAt'}}>
                             Created {{#if isSortingByCreatedAt}}<span class="caret"></span>{{/if}}
                         </span>
                     </th>
-                    <th>
+                    <th {{bind-attr class="showUpdatedAt::hidden"}}>
                         <span {{bind-attr class=":mouse-pointer isSortingByUpdatedAt:active-sort sortAscending::dropup"}} {{action 'sort' 'updatedAt'}}>
                             Updated {{#if isSortingByUpdatedAt}}<span class="caret"></span>{{/if}}
                         </span>
@@ -27,45 +43,45 @@
                 </tr>
             </thead>
             <tbody>
-            {{#each}}
-                {{#if path}}
+            {{#each requestMatcher in controller}}
+                {{#if requestMatcher.path}}
                     <tr>
-                        <td>
-                            {{#if matchesGetRequest}}
+                        <td {{bind-attr class="controller.showHttpMethods::hidden"}}>
+                            {{#if requestMatcher.matchesGetRequest}}
                                 <span class="label label-success">GET</span> 
                             {{/if}}
 
-                            {{#if matchesPostRequest}}
+                            {{#if requestMatcher.matchesPostRequest}}
                                 <span class="label label-primary">POST</span> 
                             {{/if}}
 
-                            {{#if matchesPutRequest}}
+                            {{#if requestMatcher.matchesPutRequest}}
                                 <span class="label label-warning">PUT</span> 
                             {{/if}}
 
-                            {{#if matchesDeleteRequest}}
+                            {{#if requestMatcher.matchesDeleteRequest}}
                                 <span class="label label-danger">DELETE</span> 
                             {{/if}}
                         </td>
-                        <td>
-                            {{#if isNew}}
-                                {{path}}
+                        <td {{bind-attr class="controller.showPath::hidden"}}>
+                            {{#if requestMatcher.isNew}}
+                                {{requestMatcher.path}}
                             {{else}}
-                                {{#link-to 'project.request-matcher' this}}{{path}}{{/link-to}}
+                                {{#link-to 'project.request-matcher' requestMatcher}}{{requestMatcher.path}}{{/link-to}}
                             {{/if}}
                         </td>
-                        <td>
-                            {{activeResponse.title}}
+                        <td {{bind-attr class="controller.showActiveResponse::hidden"}}>
+                            {{requestMatcher.activeResponse.title}}
                         </td>
-                        <td>
-                            {{format-date createdAt}}
+                        <td {{bind-attr class="controller.showCreatedAt::hidden"}}>
+                            {{format-date requestMatcher.createdAt}}
                         </td>
-                        <td>
-                            {{format-date updatedAt}}
+                        <td {{bind-attr class="controller.showUpdatedAt::hidden"}}>
+                            {{format-date requestMatcher.updatedAt}}
                         </td>
                         <td class="text-right">
-                            {{#unless isNew}}
-                                <button type="submit" class="btn btn-default" {{action 'editRequestMatcher' this}}>
+                            {{#unless requestMatcher.isNew}}
+                                <button type="submit" class="btn btn-default" {{action 'editRequestMatcher' requestMatcher}}>
                                     <span class="glyphicon glyphicon-pencil"></span> Edit
                                 </button>
                             {{/unless}}

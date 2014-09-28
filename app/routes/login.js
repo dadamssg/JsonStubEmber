@@ -2,33 +2,37 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-    setupController: function (controller) {
-          controller.set('errorMessages', []);
-          controller.set('submitting', false);
+    activate: function () {
+        this.stopSubmitting();
     },
 
     deactivate: function() {
+        this.get('controller').clearMessages();
+    },
+
+    stopSubmitting: function () {
         var controller = this.get('controller');
-        controller.set('successMessages', []);
-        controller.set('errorMessages', []);
+        if (controller) {
+            controller.set('submitting', false);
+        }
     },
 
     actions: {
 
         authenticateSession: function () {
-            this.controller.set('submitting', false);
+            this.stopSubmitting();
             return this._super();
         },
 
         sessionAuthenticationFailed: function (error) {
+            this.stopSubmitting();
             var errorMsg = 'Invalid username/password.';
 
             if (error.errors) {
                 errorMsg = error.errors[0];
             }
 
-            this.get('controller').get('errorMessages').pushObject(errorMsg);
-            this.controller.set('submitting', false);
+            this.get('controller').addErrorMessage('api', errorMsg);
         }
     }
 });

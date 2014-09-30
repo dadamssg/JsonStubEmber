@@ -9,6 +9,8 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
     deleting: false,
 
+    errorMessages: Ember.computed.alias('model.errors'),
+
     actions: {
 
         save: function() {

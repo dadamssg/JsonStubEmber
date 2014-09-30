@@ -7,6 +7,8 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
     deleting: false,
 
+    errorMessages: Ember.computed.alias('model.errors'),
+
     getJson: function() {
         var body = this.get('model.body').trim();
         if (body.length === 0) {

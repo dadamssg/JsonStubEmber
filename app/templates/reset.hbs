@@ -11,12 +11,14 @@
                     <label for="email"></label>
                     {{input type="email" required="true" value=email class="form-control" id="email" placeholder="Email"}}
                 </div>
-                <button type="submit" class="btn btn-primary" {{bind-attr disabled=submitting}}>
-                    {{#if submitting}}
-                        Submitting...
-                    {{else}}
-                        Submit
-                    {{/if}}
+                <button type="submit" class="btn btn-primary ladda-button reset-button" {{bind-attr disabled=submitting}} data-style="expand-left" data-spinner-size="25">
+                    <span class="ladda-label">
+                        {{#if submitting}}
+                            Submitting
+                        {{else}}
+                            Submit
+                        {{/if}}
+                    </span>
                 </button>
             </form>
         </div>

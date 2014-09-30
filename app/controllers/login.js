@@ -16,6 +16,13 @@ export default Ember.Controller.extend(LoginControllerMixin, ApiMessages, {
         authenticate: function() {
             this.set('submitting', true);
             this.clearMessages();
+            
+            // for some reason simple-auth gets hung up after previous failed api requests
+            // this ensures it get's reset so the user can resubmit the form
+            Ember.run.later(this, function() {
+              this.set('submitting', false);
+            }, 2000);
+
             return this._super();
         }
     }

@@ -7,7 +7,7 @@ export default Ember.ObjectController.extend(ApiMessages, {
 
     completed: false,
     
-    working: false,
+    submitting: false,
 	
     email: '',
 	
@@ -43,7 +43,7 @@ export default Ember.ObjectController.extend(ApiMessages, {
                 }
             };
 
-            self.set('working', true);
+            self.set('submitting', true);
             var adapter = this.store.adapterFor('application');
             var url = adapter.get('host') + '/users/register';
 
@@ -56,7 +56,7 @@ export default Ember.ObjectController.extend(ApiMessages, {
             }).catch(function (response) {
                 self.extractErrors(response);
             }).finally(function () {
-                self.set('working', false);
+                self.set('submitting', false);
             });
         } 
     }

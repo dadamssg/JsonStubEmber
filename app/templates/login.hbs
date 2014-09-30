@@ -28,12 +28,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary" {{bind-attr disabled=submitting}}>
-                            {{#if submitting}}
-                                Logging in...
-                            {{else}}
-                                Login
-                            {{/if}}
+                        <button type="submit" class="btn btn-primary ladda-button login-button" {{bind-attr disabled=submitting}} data-style="expand-left" data-spinner-size="25">
+                            <span class="ladda-label">
+                                {{#if submitting}}
+                                    Logging in
+                                {{else}}
+                                    Login
+                                {{/if}}
+                            </span>
                         </button>
                     </div>
                     <div class="col-md-6 text-right">{{#link-to 'reset'}}Forget your password?{{/link-to}}</div>

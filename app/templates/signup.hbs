@@ -24,12 +24,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary" {{bind-attr disabled=working}}>
-                                {{#if working}}
-                                    Signing you up!
-                                {{else}}
-                                    Sign up
-                                {{/if}}
+                            <button type="submit" class="btn btn-primary ladda-button register-button" {{bind-attr disabled=submitting}} data-style="expand-left" data-spinner-size="25">
+                                <span class="ladda-label">
+                                    {{#if submitting}}
+                                        Signing up
+                                    {{else}}
+                                        Sign up
+                                    {{/if}}
+                                </span>
                             </button>
                         </div>
                         <div class="col-md-6 text-right">{{#link-to 'login'}}Already signed up?{{/link-to}}</div>

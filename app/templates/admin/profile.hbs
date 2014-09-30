@@ -14,12 +14,14 @@
                     <label for="api_token">Api Token</label>        
                     {{input type="text" disabled="true" value=apiToken class="form-control" id="api_token" placeholder="Api Token"}}
                 </div>
-                <button type="submit" class="btn btn-primary" {{bind-attr disabled=working}}>
-                    {{#if working}}
-                        Generating...
-                    {{else}}
-                        New API token
-                    {{/if}}
+                <button type="submit" class="btn btn-primary ladda-button token-button" {{bind-attr disabled=working}} data-style="expand-left" data-spinner-size="25">
+                    <span class="ladda-label">
+                        {{#if working}}
+                            Generating...
+                        {{else}}
+                            New API token
+                        {{/if}}
+                    </span>
                 </button>
 
                 <button type="submit" class="btn btn-primary" {{action "openModal" "credit-card-modal"}}>

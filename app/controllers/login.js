@@ -12,6 +12,8 @@ export default Ember.Controller.extend(LoginControllerMixin, ApiMessages, {
 
     successMessages: [],
 
+    announcements: true,
+
     actions: {
         authenticate: function() {
             this.set('submitting', true);
@@ -24,6 +26,12 @@ export default Ember.Controller.extend(LoginControllerMixin, ApiMessages, {
             }, 2000);
 
             return this._super();
+        },
+
+        hideAnnouncements: function () {
+            var store = this.get('storage');
+            store.setValue('announcements', false);
+            this.set('announcements', false);
         }
     }
 });

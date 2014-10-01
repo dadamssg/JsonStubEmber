@@ -16,6 +16,10 @@ export default Ember.Mixin.create({
     },
 
     addErrorMessage: function (field, error) {
+        if (error === undefined) {
+            error = field;
+            field = 'api';
+        }
         this.get('errorMessages').add(field, error);
     },
 

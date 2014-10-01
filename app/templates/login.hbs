@@ -2,18 +2,20 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="login-container">
-            
-            <div class="alert alert-warning alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <strong>Announcements!</strong>
-              <br/><br/>
-               JsonStub has just been updated. In doing that, the authentication system has been updated as well. If you signed up before 9/14/2014, you will need to {{#link-to 'reset'}}reset your password.{{/link-to}} Sorry for the inconvience! 
 
-               <br/><br/>
-               Also, the <code>Content-Type: application/json</code> header must always be present now for any stubbed requests.
+            {{#if announcements}}
+            <div class="alert alert-warning" role="alert">
+                <button type="button" class="close" {{action "hideAnnouncements"}}><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>Announcements!</strong>
+                <br/><br/>
+                JsonStub has just been updated. In doing that, the authentication system has been updated as well. If you signed up before 9/14/2014, you will need to {{#link-to 'reset'}}reset your password.{{/link-to}} Sorry for the inconvience! 
 
-              <br/><br/><small>If you used mailinator, shoot <a href="mailto:support@jsonstub.com" target="_blank">support</a> an email with the email you'd like to update with!</small>
+                <br/><br/>
+                Also, the <code>Content-Type: application/json</code> header must always be present now for any stubbed requests.
+
+                <br/><br/><small>If you used mailinator, shoot <a href="mailto:support@jsonstub.com" target="_blank">support</a> an email with the email you'd like to update with!</small>
             </div>
+            {{/if}}
             
             {{messages-widget for=this}}
 

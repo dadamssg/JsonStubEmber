@@ -25,7 +25,8 @@ module.exports = function(environment) {
     'simple-auth': {
       authorizer: 'simple-auth-authorizer:oauth2-bearer',
       crossOriginWhitelist: ['http://jsonstub.dev', 'http://jsonstub.com'],
-      routeAfterAuthentication: 'projects'
+      routeAfterAuthentication: 'projects',
+      store: 'simple-auth-session-store:local-storage'
     }
   };
 

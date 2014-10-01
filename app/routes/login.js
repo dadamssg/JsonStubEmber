@@ -6,6 +6,13 @@ export default Ember.Route.extend({
         this.stopSubmitting();
     },
 
+    setupController: function (controller) {
+        var store = controller.get('storage');
+        var announcements = store.getValue('announcements', true);
+        store.setValue('announcements', announcements);
+        controller.set('announcements', announcements);
+    },
+
     deactivate: function() {
         this.get('controller').clearMessages();
     },

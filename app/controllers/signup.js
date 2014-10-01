@@ -32,7 +32,7 @@ export default Ember.ObjectController.extend(ApiMessages, {
             var rePassword = self.get('rePassword').trim();
 
             if (password !== rePassword) {
-                self.addError('The passwords must match.');
+                self.addErrorMessage('The passwords must match.');
                 return;
             }
 

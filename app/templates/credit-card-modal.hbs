@@ -38,18 +38,12 @@
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control" data-stripe="exp-year">
-                                <option value="14">2014</option>
-                                <option value="15">2015</option>
-                                <option value="16">2016</option>
-                                <option value="17">2017</option>
-                                <option value="18">2018</option>
-                                <option value="19">2019</option>
-                                <option value="20">2020</option>
-                                <option value="21">2021</option>
-                                <option value="22">2022</option>
-                                <option value="23">2023</option>
-                            </select>
+                            {{view Ember.Select
+                                classNames="form-control"
+                                id="exp-year"
+                                content=years
+                                optionValuePath="content.year"
+                                optionLabelPath="content.year"}}  
                         </div>
                         <div class="col-sm-9">
                         </div>
@@ -58,7 +52,7 @@
 
                 <div class="row button-row">
                     <div class="col-md-6 text-left">
-                        <button type="submit" class="btn btn-primary ladda-button" data-spinner-size="25" {{bind-attr disabled=submitting}} data-style="expand-right">
+                        <button type="submit" class="btn btn-primary ladda-button submit-button" data-spinner-size="25" {{bind-attr disabled=submitting}} data-style="expand-right">
                             <span class="ladda-label">
                             {{#if submitting}}
                                 Submitting
@@ -70,7 +64,22 @@
 
                     </div>
                     <div class="col-md-6 text-right">
-                        <button type="button" {{action "cancel"}} class="btn btn-default" {{action "closeModal"}}>
+                        <span {{bind-attr class="model.isPremium::hidden"}}>
+                            <button type="button" {{action "cancelSubscription"}} {{bind-attr disabled=canceling}} {{bind-attr class=":btn :btn-danger :ladda-button :cancel-button attemptingCancel::hidden"}} data-style="expand-left" data-spinner-size="25">
+                                <span class="ladda-label">
+                                    {{#if canceling}}
+                                        Canceling
+                                    {{else}}
+                                        Yes, I'm sure
+                                    {{/if}}
+                                </span>
+                            </button>
+                            <button type="button" {{action "attemptCancel"}} {{bind-attr class=":btn :btn-danger attemptingCancel:hidden"}}>
+                                Cancel Subscription
+                            </button>                       
+                        </span>
+
+                        <button type="button" {{action "cancel"}} class="btn btn-default">
                             <span class="glyphicon glyphicon-arrow-left"></span> Cancel
                         </button>
                     </div>

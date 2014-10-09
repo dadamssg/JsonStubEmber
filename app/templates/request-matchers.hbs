@@ -1,4 +1,4 @@
-{{#if length}}
+
     <div class="row request-matchers-buttons">
         <div class="col-md-6">
             <div class="btn-group btn-group-xs hidden">
@@ -15,6 +15,7 @@
             </button>
         </div>
     </div>
+{{#if length}}
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -71,7 +72,8 @@
                             {{/if}}
                         </td>
                         <td {{bind-attr class="controller.showActiveResponse::hidden"}}>
-                            {{requestMatcher.activeResponse.title}}
+                            {{!-- {{requestMatcher.activeResponse.title}} --}}
+                            <a href="#" {{action "openActiveResponse" requestMatcher}}>{{requestMatcher.activeResponse.title}}</a>
                         </td>
                         <td {{bind-attr class="controller.showCreatedAt::hidden"}}>
                             {{format-date requestMatcher.createdAt}}

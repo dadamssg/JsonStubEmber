@@ -12,10 +12,6 @@ export default Ember.Controller.extend(ApiMessages, CurrentUserMixin, {
 
     working: false,
 
-    email: Ember.computed.alias("session.user.email"),
-
-    apiToken: null,
-
     actions: {
 
         updateToken: function () {
@@ -32,12 +28,17 @@ export default Ember.Controller.extend(ApiMessages, CurrentUserMixin, {
                 contentType: 'application/json',
             }).then(function (response) {
                 var token = response.user.api_token;   
-                self.set('apiToken', token); 
+                // self.set('apiToken', token); 
 
-                var session = self.get('session');
-                var user = session.get('user');
-                user.apiToken = token;
-                session.set('user', user);
+                // var session = self.get('session');
+                // var user = session.get('user');
+                // user.apiToken = token;
+                // session.set('user', user);
+
+                // self.getUser().then(function (user) {
+                //     user.set('apiToken', token);
+                // });
+                self.get('model').set('apiToken', token);
             }).catch(function (response) {
                 self.extractErrors(response);
             }).finally(function () {

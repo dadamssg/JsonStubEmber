@@ -14,14 +14,27 @@ export default Ember.ObjectController.extend(Ember.Evented, ApiMessages, {
 
     submitting: false,
 
+    canceling: false,
+
+    attemptingCancel: false,
+
+    clearAllMessages: function () {
+        var profileController = this.get("controllers.admin/profile");
+        profileController.clearMessages();
+        this.clearMessages();
+    },
+
+    getUser: function () {
+        return this.get('userSession').getUser();
+    },
+
     actions: {
 
         submit: function() {
             this.set('submitting', true);
 
+            this.clearAllMessages();
             var profileController = this.get("controllers.admin/profile");
-            profileController.clearMessages();
-            this.clearMessages();
 
             var $form = Ember.$('#payment-form');
             var self = this;
@@ -44,9 +57,14 @@ export default Ember.ObjectController.extend(Ember.Evented, ApiMessages, {
                                 token: token
                             }
                         })
-                    }).then(function() {
+                    }).then(function(response) {
                         profileController.addSuccessMessage("You've successfuly updated your subscription!");
-                        self.trigger('closeModal');
+                        self.getUser().then(function (user) {
+                            user.set('subscriptionPlan', response.subscription.plan);
+                            user.set('subscriptionPrice', response.subscription.price);
+                            //self.get('session').set('user', user);
+                            self.trigger('closeModal');
+                        });
                     }).catch(function(response) {
                         self.extractErrors(response);
                     }).finally(function() {
@@ -56,10 +74,55 @@ export default Ember.ObjectController.extend(Ember.Evented, ApiMessages, {
             });
         },
 
+        attemptCancel: function () {
+            this.set('attemptingCancel', true);
+        },
+
+        cancelSubscription: function () {
+            
+            var self = this;
+            var profileController = self.get("controllers.admin/profile");
+            self.clearAllMessages();
+            self.set('canceling', true);
+
+            ajax(config.APP.API.host + '/api/subscriptions/mine', {
+                type: 'DELETE',
+                contentType: 'application/json'
+            }).then(function () {
+                profileController.addSuccessMessage("You've successfuly cancelled your subscription.");
+                self.getUser().then(function (user) {
+                    user.set('subscriptionPlan', '');
+                    user.set('subscriptionPrice', 0);
+                    //self.get('session').set('user', user);
+                    self.set('attemptingCancel', false);
+                    self.trigger('closeModal');
+                    //self.closeModal();
+                });
+            }).catch(function(response) {
+                self.extractErrors(response);
+            }).finally(function() {
+                self.set('canceling', false);
+            });
+        },
+
         cancel: function() {
-            this.trigger('closeModal');     
+            //this.closeModal();    
+            this.set('attemptingCancel', false);
+            this.trigger('closeModal');  
         }
-    }
+    },
+    
+    years: function () {
+        var date = moment();
+        var years = [];
+        for (var i = 0; i < 4; i++) { 
+            years.push({
+                year: date.format('YYYY')
+            });
+            date.add(1, 'years');
+        }
+        return years;
+    }.property()
 });
 
 

@@ -7,7 +7,8 @@ var storage = LocalStorage.extend({
 
     getValue: function (key, defaultValue) {
         var data = this.restore() || {};
-        return data[key] === undefined ? defaultValue : data[key];
+        var value = data[key];
+        return value === undefined ? defaultValue : value;
     },
 
     setValue: function (key, value) {

@@ -1,14 +1,25 @@
 import Ember from 'ember';
-import CurrentUserMixin from '../../mixins/current-user';
 
-export default Ember.Route.extend(CurrentUserMixin, {
-    model: function () {
-        return this.getUser();
+export default Ember.Route.extend({
+    
+    activate: function () {
+        var controller = this.get('controller');
+        if (controller) {
+            controller.clearMessages();
+        }
     },
 
-    setupController: function (controller, model) {
-        this._super(controller, model);
-        var token = this.get('session.user.apiToken');
-        controller.set('apiToken', token);
+    model: function () {
+        return this.get('userSession').getUser();
+    },
+
+    actions: {
+        openCreditCardModal: function () {
+            this.render('credit-card-modal', {
+                into: 'application',
+                outlet: 'modal',
+                model: this.get('controller.model')
+            });
+        }
     }
 });

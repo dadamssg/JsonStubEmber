@@ -3,5 +3,15 @@ import Base from './base';
 
 export default Base.extend({
 	email: DS.attr('string'),
-    apiToken: DS.attr('string')
+    apiToken: DS.attr('string'),
+    subscriptionPlan: DS.attr('string'),
+    subscriptionPrice: DS.attr('number'),
+    subscriptionValid: DS.attr('boolean'),
+    isPremium: function () {
+        var sub = this.get('subscriptionPlan');
+        return sub && sub.toLowerCase() === 'premium';
+    }.property('subscriptionPlan'),
+    hasCard: function () {
+        return this.get('isPremium') && this.get('subscriptionPrice') > 0;
+    }.property('isPremium', 'subscriptionPrice')
 });

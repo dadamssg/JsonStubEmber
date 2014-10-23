@@ -60,8 +60,8 @@ export default DS.RESTSerializer.extend({
 		return this._super(store, type, payload);
 	},
 
-    serialize: function (record, options) {
-        var json = this._super(record, options);
+    serialize: function (requestMatcher, options) {
+        var json = this._super(requestMatcher, options);
 
         json.active_response = json.activeResponse;
         json.matches_get_request = json.matchesGetRequest;

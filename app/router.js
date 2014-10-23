@@ -1,10 +1,11 @@
 import Ember from 'ember';
+import config from './config/environment';
 
 var Router = Ember.Router.extend({
-  location: JsonstubEmberENV.locationType
+  location: config.locationType
 });
 
-Router.map(function() {
+ Router.map(function() {
     
     // /login
     this.route('login');
@@ -40,6 +41,5 @@ Router.map(function() {
     });
 
     this.route('four-oh-four', {path: '*path'});
-});
-
+ });
 export default Router;

@@ -35,6 +35,7 @@ export default Ember.Mixin.create({
                     user.set('subscriptionPlan', value.subscription.plan);
                     user.set('subscriptionPrice', value.subscription.price);
                     user.set('subscriptionValid', value.subscription.valid);
+                    user.set('subscriptionRateLimit', value.subscription.rate_limit);
                     return;
                 }
                 user.set(field.camelize(), value);

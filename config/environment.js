@@ -1,6 +1,17 @@
 /* jshint node: true */
 
 module.exports = function(environment) {
+
+  var api_host = 'https://jsonstub.dev/app_test.php';
+  var stripeKey = 'pk_N3Me9PMC88rJy8wZ5jLQ9fvexdR9W';
+  var devMode = true;
+
+  if (environment === 'production') {
+    api_host = 'http://jsonstub.com';
+    stripeKey = 'pk_N3Me9PMC88rJy8wZ5jLQ9fvexdR9W';
+    devMode = false;
+  }
+
   var ENV = {
     modulePrefix: 'jsonstub-ember',
     environment: environment,
@@ -15,10 +26,12 @@ module.exports = function(environment) {
 
     APP: {
       API: {
+        devMode: devMode,
+        host: api_host,
         namespace: 'api'
       },
       STRIPE: {
-        pubKey: 'pk_N3Me9PMC88rJy8wZ5jLQ9fvexdR9W'
+        pubKey: stripeKey
       }
     },
 
@@ -27,6 +40,11 @@ module.exports = function(environment) {
       crossOriginWhitelist: ['http://jsonstub.dev', 'http://jsonstub.com'],
       routeAfterAuthentication: 'projects',
       store: 'simple-auth-session-store:local-storage'
+    },
+    'simple-auth-oauth2': {
+        serverTokenEndpoint: api_host + "/oauth/v2/token",
+        serverTokenRevocationEndpoint: api_host + "/oauth/v2/token/destroy",
+        refreshAccessTokens: true
     }
   };
 
@@ -36,20 +54,18 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.APP.API.host = 'http://jsonstub.dev/app_test.php';
   }
 
   if (environment === 'test') {
-    ENV.APP.API.host = 'http://jsonstub.dev/app_test.php';
-  }
+    // Testem prefers this...
+    ENV.baseURL = '/';
+    ENV.locationType = 'auto';
 
-  if (environment === 'production') {
-    ENV.APP.API.host = 'http://jsonstub.com';
-    ENV.APP.STRIPE.pubKey = 'pk_N3Me9PMC88rJy8wZ5jLQ9fvexdR9W';
-  }
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
 
-  if (environment === 'staging') {
-    ENV.APP.API.host = 'http://staging.jsonstub.com';
+    ENV.APP.rootElement = '#ember-testing';
   }
 
   return ENV;

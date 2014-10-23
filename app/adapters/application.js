@@ -2,7 +2,6 @@ import DS from 'ember-data';
 import Ember from 'ember';
 import config from '../config/environment';
 
-
 export default DS.RESTAdapter.reopen({
     host: config.APP.API.host,
     namespace: config.APP.API.namespace,

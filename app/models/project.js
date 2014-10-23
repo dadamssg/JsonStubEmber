@@ -5,6 +5,6 @@ export default Base.extend({
 	title: DS.attr('string'),
 	private: DS.attr('boolean'),
     apiToken: DS.attr('string'),
-	requestMatchers: DS.hasMany('request-matcher', {async: true}),
+	requestMatchers: DS.hasMany('request-matcher', {async: true, inverse: 'project'}),
 	responses: DS.hasMany('response', {async: true})
 });

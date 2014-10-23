@@ -20,6 +20,7 @@ export default DS.RESTSerializer.extend({
             project.links = {
                 requestMatchers: project._links.request_matchers.href
             };
+
             project.apiToken = project.api_token;
 
             delete project.api_token;

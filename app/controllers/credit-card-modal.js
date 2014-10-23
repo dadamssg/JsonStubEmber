@@ -49,7 +49,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ApiMessages, {
                     // response contains id and card, which contains additional card details
                     var token = response.id;
                     
-                    ajax(config.APP.API.host + '/api/subscriptions', {
+                    ajax(config.APP.API.host + '/api/subscriptions' + '?XDEBUG_SESSION_START=PHPSTORM', {
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify({
@@ -62,6 +62,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ApiMessages, {
                         self.getUser().then(function (user) {
                             user.set('subscriptionPlan', response.subscription.plan);
                             user.set('subscriptionPrice', response.subscription.price);
+                            user.set('subscriptionRateLimit', response.subscription.rate_limit);
                             //self.get('session').set('user', user);
                             self.trigger('closeModal');
                         });

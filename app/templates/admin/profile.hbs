@@ -50,6 +50,10 @@
                             {{/if}}
                         </span>  subscription
                     </p> <br/>
+                    <p>
+                        Your rate limit is {{model.rateLimit}} requests per hour. 
+                    </p>
+
                     <button type="submit" class="btn btn-primary" {{action "openCreditCardModal"}}>
                         {{#if model.isPremium}}Update Subscription{{else}}Go premium!{{/if}}
                     </button>     

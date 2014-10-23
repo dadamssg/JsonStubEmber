@@ -7,6 +7,11 @@ var User = Ember.Object.extend({
     apiToken: null,
     subscriptionPlan: null,
     subscriptionPrice: null,
+    subscriptionRateLimit: 0,
+    rateLimit: function () {
+        var limit = parseInt(this.get('subscriptionRateLimit'));
+        return limit === 0 ? 200 : limit;
+    }.property('subscriptionRateLimit'),
     plan: function () {
         var plan = this.get('subscriptionPlan');
         return plan && plan.capitalize();
@@ -49,6 +54,7 @@ var UserSession = Ember.Object.extend({
                 var subscription = userData._embedded.subscription;
                 userData.subscriptionPlan = subscription.plan;
                 userData.subscriptionPrice = subscription.price;
+                userData.subscriptionRateLimit = subscription.rate_limit;
                 delete userData._embedded;
             }
 

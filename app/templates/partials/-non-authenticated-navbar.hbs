@@ -11,6 +11,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li>            
+                    <button {{action 'tweet'}} class="btn btn-info navbar-btn navbar-right btn-sm twitter-button">
+                        <span class="glyphicon glyphicon-heart"></span> Tweet
+                    </button>
+                </li>
                 <li>{{#link-to 'signup'}}Sign up{{/link-to}}</li>
                 <li><a {{ action 'authenticateSession' }} class="mouse-pointer">Login</a></li>
             </ul>

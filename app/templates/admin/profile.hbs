@@ -19,7 +19,7 @@
                         {{input type="text" disabled="true" value=model.apiToken class="form-control" id="api_token" placeholder="Api Token"}}
                     </div>
                     {{!-- <div class="form-group"> --}}
-
+                    <div>
                         <button type="submit" class="btn btn-primary ladda-button token-button" {{action 'updateToken'}} {{bind-attr disabled=working}} data-style="expand-left" data-spinner-size="25">
                             <span class="ladda-label">
                                 {{#if working}}
@@ -29,6 +29,7 @@
                                 {{/if}}
                             </span>
                         </button>
+                    </div>
                     {{!-- </div> --}}
                 </div>
             </div>
@@ -40,23 +41,75 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <p>
-                        You have the 
-                        <span class="label label-success">
-                            {{#if model.plan}}
-                                {{model.plan}}
-                            {{else}}
-                                Free
-                            {{/if}}
-                        </span>  subscription
-                    </p> <br/>
-                    <p>
-                        Your rate limit is {{model.rateLimit}} requests per hour. 
-                    </p>
+                    <table class="table subscription-table">
+                        <tr>
+                            <td>Plan</td>
+                            <td>
+                                <span class="label label-success">
+                                    {{#if model.plan}}
+                                        {{model.plan}}
+                                    {{else}}
+                                        Basic
+                                    {{/if}}
+                                </span> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rate limit</td>
+                            <td>{{model.rateLimit}} requests / 5 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Multiple Responses / Request</td>
+                            <td><span class="glyphicon glyphicon-remove"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Requests over HTTPS</td>
+                            <td><span class="glyphicon glyphicon-remove"></span></td>
+                        </tr>    
+                        <tr>
+                            <td>Price</td>
+                            <td>{{format-currency model.subscriptionPrice}} / month</td>
+                        </tr>                      
+                    </table>
+                    <br/>
 
-                    <button type="submit" class="btn btn-primary" {{action "openCreditCardModal"}}>
-                        {{#if model.isPremium}}Update Subscription{{else}}Go premium!{{/if}}
-                    </button>     
+                    {{#if model.isPremium}}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary" {{action "openCreditCardModal"}}>
+                                Update Subscription
+                            </button>   
+                        </div>  
+                    {{else}}
+                        <div class="alert alert-success premium-offer">
+                            <div class="text-center">
+                                <h3 class="premium-heading">Premium Features</h3>
+                            </div>
+
+                            <table class="table subscription-table">
+                                <tr>
+                                    <td>Rate Limit</td>
+                                    <td>200 requests / 5 minutes</td>
+                                </tr>
+                                <tr>
+                                    <td>Multiple Responses / Request</td>
+                                    <td><span class="glyphicon glyphicon-ok"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Requests over HTTPS</td>
+                                    <td><span class="glyphicon glyphicon-ok"></span></td>
+                                </tr>    
+                                <tr>
+                                    <td>Access to future <strong>Premium</strong> features</td>
+                                    <td><span class="glyphicon glyphicon-ok"></span></td>
+                                </tr>                  
+                            </table>
+                            <div class="text-center go-premium">
+                                <button type="submit" class="btn btn-primary btn-lg" {{action "openCreditCardModal"}}>
+                                    Go premium!
+                                </button>   
+                            </div>  
+                        </div>
+                    {{/if}}
                 </div>
             </div>
         </div>

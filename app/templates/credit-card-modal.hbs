@@ -2,7 +2,11 @@
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title">
-                Card Details
+                {{#if model.isPremium}}
+                    Update Card 
+                {{else}}
+                    JsonStub Premium - $3.99 / month
+                {{/if}}
             </h4>
         </div>
         <div class="modal-body">

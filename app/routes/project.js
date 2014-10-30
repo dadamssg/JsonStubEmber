@@ -65,12 +65,20 @@ export default Ember.Route.extend(
         openActiveResponse: function (requestMatcher) {
             var self = this;
             requestMatcher.get('activeResponse').then(function (response) {
-                response.set('requestMatcher', requestMatcher);
+
                 self.render('response-modal', {
                     into: 'application',
                     outlet: 'modal',
                     model: response
                 });
+            });
+        },
+
+        activeResponse: function (response) {
+            this.render('response-modal', {
+                into: 'application',
+                outlet: 'modal',
+                model: response
             });
         }
     }

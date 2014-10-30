@@ -211,3 +211,20 @@ body {
 .twitter-button {
     margin-right: 10px;
 }
+
+.subscription-table {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.go-premium {
+    margin-top: 20px;
+}
+
+.premium-heading {
+    margin-top: 5px;
+}
+
+.premium-offer {
+    margin-bottom: 0px;
+}

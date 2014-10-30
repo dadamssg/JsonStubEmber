@@ -89,11 +89,12 @@ export default Ember.ObjectController.extend(Ember.Evented, ApiMessages, {
             ajax(config.APP.API.host + '/api/subscriptions/mine', {
                 type: 'DELETE',
                 contentType: 'application/json'
-            }).then(function () {
+            }).then(function (response) {
                 profileController.addSuccessMessage("You've successfuly cancelled your subscription.");
                 self.getUser().then(function (user) {
-                    user.set('subscriptionPlan', '');
-                    user.set('subscriptionPrice', 0);
+                    user.set('subscriptionPlan', response.subscription.plan);
+                    user.set('subscriptionPrice', response.subscription.price);
+                    user.set('subscriptionRateLimit', response.subscription.rate_limit);
                     //self.get('session').set('user', user);
                     self.set('attemptingCancel', false);
                     self.trigger('closeModal');

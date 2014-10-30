@@ -33,7 +33,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         },
 
         tweet: function () {
-            var url = 'https://twitter.com/home?status=Fake%20the%20backend%20API%20while%20you%20develop%20the%20frontend%20http://jsonstub.com%20';
+            var url = 'https://twitter.com/home?status=Fake%20the%20backend%20API%20while%20you%20develop%20the%20frontend%20with%20@JsonStub%20http://jsonstub.com%20/';
             var width = 550;
             var height = 350;
             var top = (screen.height/2)-(height/2);

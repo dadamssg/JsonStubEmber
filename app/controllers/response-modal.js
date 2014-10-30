@@ -34,7 +34,7 @@ export default Ember.ObjectController.extend(Ember.Evented, ResourceModal, {
 
             self.set('saving', true);
 
-            response.save().then(function(){       
+            response.save().then(function() {       
                 response.get('requestMatcher').then(function (requestMatcher) {
                     // reload to get updated responses because the activated response might have changed
                     return requestMatcher.reload();

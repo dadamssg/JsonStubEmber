@@ -68,7 +68,7 @@
 
                     </div>
                     <div class="col-md-6 text-right">
-                        <span {{bind-attr class="model.isPremium::hidden"}}>
+                        <span {{bind-attr class="model.hasCard::hidden"}}>
                             <button type="button" {{action "cancelSubscription"}} {{bind-attr disabled=canceling}} {{bind-attr class=":btn :btn-danger :ladda-button :cancel-button attemptingCancel::hidden"}} data-style="expand-left" data-spinner-size="25">
                                 <span class="ladda-label">
                                     {{#if canceling}}

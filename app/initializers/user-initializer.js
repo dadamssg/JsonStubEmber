@@ -14,15 +14,18 @@ var User = Ember.Object.extend({
     }.property('subscriptionRateLimit'),
     plan: function () {
         var plan = this.get('subscriptionPlan');
-        return plan && plan.capitalize();
+        return plan ? plan.capitalize() : 'Basic';
     }.property('subscriptionPlan'),
     isPremium: function () {
-        var sub = this.get('subscriptionPlan');
-        return sub && sub.toLowerCase() === 'premium';
+        var plan = this.get('plan');
+        plan = plan.toLowerCase();
+        return plan === 'premium' || plan === 'beta';
     }.property('subscriptionPlan'),
     hasCard: function () {
-        return this.get('isPremium') && this.get('subscriptionPrice') > 0;
+        var price = parseInt(this.get('subscriptionPrice'), 10);
+        return this.get('isPremium') && price > 0;
     }.property('isPremium', 'subscriptionPrice')
+
 });
 
 var UserSession = Ember.Object.extend({

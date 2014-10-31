@@ -12,10 +12,17 @@
         <div class="navbar-collapse collapse">       
             <ul class="nav navbar-nav navbar-right">
                 <li>            
-                    <button {{action 'tweet'}} class="btn btn-info navbar-btn navbar-right btn-sm twitter-button">
+                    <button {{action 'tweet'}} class="btn btn-info navbar-btn navbar-right btn-sm custom-nav-button">
                         <span class="glyphicon glyphicon-heart"></span> Tweet
                     </button>
                 </li>
+                {{#unless user.isPremium}}
+                    <li>            
+                        <button {{action 'goPremium'}} class="btn btn-success navbar-btn navbar-right btn-sm custom-nav-button">
+                            <span class="glyphicon glyphicon-plus"></span> Go Premium!
+                        </button>
+                    </li>
+                {{/unless}}
                 <li>            
                     <button {{action 'newProject'}} class="btn btn-info navbar-btn navbar-right btn-sm">
                         <span class="glyphicon glyphicon-plus"></span> New Project

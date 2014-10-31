@@ -3,30 +3,46 @@ import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixi
 import ajax from 'ic-ajax';
 import config from '../config/environment';
 
-export default Ember.Route.extend(
-    AuthenticatedRouteMixin, {
+export default Ember.Route.extend(AuthenticatedRouteMixin, {
+
+    projectsResponsesLoaded: [],
 
     activate: function() {
         this.controllerFor('project').set('showRequestMatchers', true);
     }, 
+   
+    setupController: function (controller, project) {
+        this._super(controller, project);
+        console.log('setupController!!!!');
+
+        if (!this.get('projectsResponsesLoaded').contains(project.get('id'))) {
+            this.getActiveResponses(project);
+        }
+    },
 
     model: function(params) {
 
         var self = this;
+
         return this.store.find('project', params.id).then(function (project) {
-
-            return ajax(config.APP.API.host + '/api/projects/' + project.get('id') + '/responses/active', {
-                type: 'GET',
-                contentType: 'application/json'
-            }).then(function(activeResponses) {
-                self.responseSerializer.extractArray(self.store, 'response', activeResponses);
-                self.store.pushPayload('response', activeResponses);
-                return project;
-            }).catch(function() {
-                self.transitionTo('projects');
-            });
-
+            return project;
         }).catch(function () {
+            self.transitionTo('projects');
+        });
+    },
+
+    getActiveResponses: function (project) {
+
+        var self = this;
+
+        return ajax(config.APP.API.host + '/api/projects/' + project.get('id') + '/responses/active', {
+            type: 'GET',
+            contentType: 'application/json'
+        }).then(function(activeResponses) {
+            self.store.pushPayload('response', activeResponses);
+            self.get('projectsResponsesLoaded').pushObject(project.get('id'));
+            return project;
+        }).catch(function() {
             self.transitionTo('projects');
         });
     },

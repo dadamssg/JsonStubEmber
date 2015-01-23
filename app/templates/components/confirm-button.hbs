@@ -1,0 +1,15 @@
+{{#unless working}}
+    {{#if isShowingConfirmation}}
+        <button type="button" {{action "confirm"}} class="btn btn-danger btn-xs">
+            Yes, I'm sure
+        </button>   
+        &nbsp; 
+        <button type="button" {{action "cancel"}} class="btn btn-default btn-xs">
+            <span class="glyphicon glyphicon-arrow-left"></span> Cancel
+        </button>
+    {{else}}
+        <button type="button" {{action "showConfirmation"}} class="btn btn-warning btn-xs">
+            <span class="glyphicon glyphicon-remove"></span> {{title}}
+        </button>
+    {{/if}}
+{{/unless}}

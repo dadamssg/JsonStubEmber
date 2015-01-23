@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="panel-container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Invitations</h3>
+                </div>
+                <div class="panel-body">
+
+                    {{messages-widget for=this}}
+                    
+                    {{#if length}}
+                        <table class="table invitations-table">
+                            <tbody>
+                                {{#each}}
+                                    <tr>
+                                        <td>{{project}}</td>
+                                        <td class="text-right">
+                                            <button type="submit" class="btn btn-danger btn-sm" {{action "denyInvitation" this}}>
+                                                Deny
+                                            </button> &nbsp;
+                                            <button type="submit" class="btn btn-success btn-sm" {{action "acceptInvitation" this}}>
+                                                Accept
+                                            </button>  
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    {{else}}
+                        <div class="col-md-12 text-center">No invitations.</div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

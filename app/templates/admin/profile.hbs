@@ -59,13 +59,17 @@
                             <td>{{model.rateLimit}} requests / 5 minutes</td>
                         </tr>
                         <tr>
-                            <td>Multiple Responses / Request</td>
+                            <td>Multiple responses / request</td>
                             <td><span {{bind-attr class=":glyphicon model.isPremium:glyphicon-ok:glyphicon-remove"}}></span></td>
                         </tr>
                         <tr>
                             <td>Requests over HTTPS</td>
                             <td><span {{bind-attr class=":glyphicon model.isPremium:glyphicon-ok:glyphicon-remove"}}></span></td>
                         </tr>    
+                        <tr>
+                            <td>Ability to invite collaborators* to projects</td>
+                            <td><span {{bind-attr class=":glyphicon model.isPremium:glyphicon-ok:glyphicon-remove"}}></span></td>
+                        </tr> 
                         <tr>
                             <td>Price</td>
                             <td>{{format-currency model.subscriptionPrice}} / month</td>
@@ -91,13 +95,17 @@
                                     <td>200 requests / 5 minutes</td>
                                 </tr>
                                 <tr>
-                                    <td>Multiple Responses / Request</td>
+                                    <td>Multiple responses / request</td>
                                     <td><span class="glyphicon glyphicon-ok"></span></td>
                                 </tr>
                                 <tr>
                                     <td>Requests over HTTPS</td>
                                     <td><span class="glyphicon glyphicon-ok"></span></td>
-                                </tr>    
+                                </tr>  
+                                <tr>
+                                    <td>Ability to invite collaborators* to projects</td>
+                                    <td><span class="glyphicon glyphicon-ok"></span></td>
+                                </tr>   
                                 <tr>
                                     <td>Access to future <strong>Premium</strong> features</td>
                                     <td><span class="glyphicon glyphicon-ok"></span></td>
@@ -110,6 +118,8 @@
                             </div>  
                         </div>
                     {{/if}}
+                    <br/>
+                    <small>*Collaborators can be any JsonStub member. They do not need to be premium.</small>
                 </div>
             </div>
         </div>

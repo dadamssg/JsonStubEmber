@@ -4,13 +4,30 @@ export default Ember.Route.extend({
 
     activate: function () {
         this.stopSubmitting();
+        if (window.location.protocol !== "https:") {
+            window.location.href = "https://jsonstub.com/login";
+        }
+
+        this.redirectIfLoggedIn(this.get('controller'));
     },
 
     setupController: function (controller) {
+
+        this.redirectIfLoggedIn(controller);
+
         var store = controller.get('storage');
         var announcements = store.getValue('announcements', true);
         store.setValue('announcements', announcements);
         controller.set('announcements', announcements);
+    },
+
+    redirectIfLoggedIn: function (controller) {
+        if (!controller) {
+            return;
+        }
+        if (controller.get('session.isAuthenticated')) {
+            this.transitionTo('projects');
+        }
     },
 
     deactivate: function() {

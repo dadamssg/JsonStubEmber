@@ -26,6 +26,7 @@
 <pre><code class="javascript">DS.RESTAdapter.reopen({
     host: 'http://jsonstub.com',
     headers: {
+        'Content-Type': 'application/json',
         'JsonStub-User-Key': '{{apiToken}}',
         'JsonStub-Project-Key': '{{projectToken}}'
     }

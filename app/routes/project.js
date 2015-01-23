@@ -7,6 +7,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     projectsResponsesLoaded: [],
 
+    loadingMembers: false,
+
     activate: function() {
         this.controllerFor('project').set('showRequestMatchers', true);
     }, 
@@ -95,6 +97,44 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
                 into: 'application',
                 outlet: 'modal',
                 model: response
+            });
+        },
+
+        inviteToProject: function (project) {
+            if (this.get('loadingMembers')) {
+                return;
+            }
+
+            this.set('loadingMembers', true);
+
+            var self = this;
+            var adapter = this.store.adapterFor('application');
+            var url = adapter.get('host') + '/' + adapter.get('namespace') + '/projects/' + project.get('id') + '/members';
+            var controller = this.controllerFor('invitation-modal');
+            var members = controller.get('members');
+            controller.clearMessages();
+            members.clear();
+
+            return ajax(url, {
+                type: 'GET',
+                contentType: 'application/json',
+            }).then(function (response) {
+                var users = response.users;
+
+                if (users) {
+                    users.forEach(function (user) {
+                        members.pushObject(user);
+                    });
+                }
+            }).finally(function () {
+
+                self.render('invitation-modal', {
+                    into: 'application',
+                    outlet: 'modal',
+                    model: project
+                });
+
+                self.set('loadingMembers', false);
             });
         }
     }

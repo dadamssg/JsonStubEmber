@@ -32,6 +32,14 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             });
         },
 
+        goToLogin: function () {
+            if (window.location.protocol !== "https:") {
+                window.location.href = "https://jsonstub.com/login";
+            } else {
+                this.transitionTo('login');
+            }
+        },
+
         tweet: function () {
             var url = 'https://twitter.com/home?status=Fake%20the%20backend%20API%20while%20you%20develop%20the%20frontend%20with%20@JsonStub%20http://jsonstub.com%20/';
             var width = 550;

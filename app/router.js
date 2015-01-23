@@ -28,6 +28,9 @@ var Router = Ember.Router.extend({
         // /admin/profile
         this.route('profile');
 
+        // /admin/invitations
+        this.route('invitations');
+
         // /admin/projects
         this.resource('projects', function() {
 

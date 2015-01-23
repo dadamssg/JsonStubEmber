@@ -9,5 +9,20 @@ export default Ember.Route.extend({
             controller.clearMessages();
             controller.set('completed', false);
         }
-    }   
+
+        this.redirectIfLoggedIn(controller);
+    },
+
+    setupController: function (controller) {
+        this.redirectIfLoggedIn(controller);
+    },
+
+    redirectIfLoggedIn: function (controller) {
+        if (!controller) {
+            return;
+        }
+        if (controller.get('session.isAuthenticated')) {
+            this.transitionTo('projects');
+        }
+    }
 });

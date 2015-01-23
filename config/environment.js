@@ -7,8 +7,8 @@ module.exports = function(environment) {
   var devMode = true;
 
   if (environment === 'production') {
-    api_host = 'http://jsonstub.com';
-    stripeKey = 'pk_N3Me9PMC88rJy8wZ5jLQ9fvexdR9W';
+    api_host = 'https://jsonstub.com';
+    stripeKey = 'pk_B95JCBxoUTpYXMGMKuPj0TTKDq30k';
     devMode = false;
   }
 

@@ -108,7 +108,6 @@ export default Ember.ObjectController.extend(Ember.Evented, ApiMessages, {
         },
 
         cancel: function() {
-            //this.closeModal();    
             this.set('attemptingCancel', false);
             this.trigger('closeModal');  
         }

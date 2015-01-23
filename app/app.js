@@ -1,28 +1,16 @@
 import Ember from 'ember';
 import Resolver from 'ember/resolver';
 import loadInitializers from 'ember/load-initializers';
+import config from './config/environment';
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
 var App = Ember.Application.extend({
-  modulePrefix: 'jsonstub-ember', // TODO: loaded via config
+  modulePrefix: config.modulePrefix,
+  podModulePrefix: config.podModulePrefix,
   Resolver: Resolver
 });
 
-loadInitializers(App, 'jsonstub-ember');
+loadInitializers(App, config.modulePrefix);
 
-Ember.View.reopen({
-  init: function() {
-    this._super();
-    var self = this;
-
-    // bind attributes beginning with 'data-'
-    Ember.keys(this).forEach(function(key) {
-      if (key.substr(0, 5) === 'data-') {
-        self.get('attributeBindings').pushObject(key);
-      }
-    });
-  }
-});
-        
 export default App;
